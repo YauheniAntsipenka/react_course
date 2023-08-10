@@ -3,14 +3,16 @@ import React from 'react';
 import { Logo } from './components/Logo/Logo';
 import { Button } from '../../common/Button/Button';
 
-import './Header.scss';
+import { HeaderProps } from './Header.types';
 
-export const Header = (props) => {
+import './header.scss';
+
+export const Header: React.FC<HeaderProps> = (props) => {
 	return (
 		<div className='header'>
 			<Logo />
 			<span className='username'>{props.username}</span>
-			<Button className='button' text='logout' onClickFunction={onSave} />
+			<Button text='logout' onClickFunction={onSave} />
 		</div>
 	);
 };
