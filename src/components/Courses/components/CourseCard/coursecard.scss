@@ -1,0 +1,23 @@
+.card {
+    width: 80%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+
+    background: #FFFFFF;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+.durationGroup {
+    display: flex;
+}
+
+.creationDateGroup {
+    display: flex;
+}
+
+.buttonsGroup {
+    display: flex;
+}
