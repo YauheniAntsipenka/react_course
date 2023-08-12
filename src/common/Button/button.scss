@@ -1,10 +1,17 @@
 .button {
-    width: 90px;
-    height: 50%;
+    width: 150px;
+    height: 40px;
     margin-right: 2%;
+
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 34px;
     
     background: #007298;
-    border-radius: 4px;
+    border-radius: 5px;
+    border: 0px;
     font-size: 16px;
     color: #fff;
 }

@@ -9,23 +9,31 @@ import './coursecard.scss';
 export const CourseCard: React.FC<CourseCardProps> = (props) => (
 	<li>
 		<div className='card'>
-			<div>
-				<h2>{props.title}</h2>
-				<span>{props.description}</span>
+			<div className='title'>
+				<h3>{props.title}</h3>
 			</div>
-			<div>
-				<div className='durationGroup'>
-					<h3>Duration</h3>
-					<span>{props.duration}</span>
+			<div className='courseInfo'>
+				<div className='description'>
+					<span>{props.description}</span>
 				</div>
-				<div className='creationDateGroup'>
-					<h3>Created</h3>
-					<span>{props.creationDate}</span>
-				</div>
-				<div className='buttonsGroup'>
-					<Button text='SHOW COURSE' onClickFunction={fakeClick} />
-					<Button text='D' onClickFunction={fakeClick} />
-					<Button text='E' onClickFunction={fakeClick} />
+				<div className='additionalInfoGroup'>
+					<div className='infoGroup'>
+						<div className='authorsGroup'>
+							<span className='categoryName'>Authors:</span>
+							<span>&nbsp;{props.duration}</span>
+						</div>
+						<div className='durationGroup'>
+							<span className='categoryName'>Duration:</span>
+							<span>&nbsp;{props.duration}</span>
+						</div>
+						<div className='creationDateGroup'>
+							<span className='categoryName'>Created:</span>
+							<span>&nbsp;{props.creationDate}</span>
+						</div>
+					</div>
+					<div className='buttonsGroup'>
+						<Button text='SHOW COURSE' onClickFunction={fakeClick} />
+					</div>
 				</div>
 			</div>
 		</div>

@@ -6,6 +6,8 @@ import { Courses } from './components/Courses/Courses';
 import { Header } from './components/Header/Header';
 import { CourseCardProps } from './components/Courses/components/CourseCard/CourseCard.types';
 
+import './app.scss';
+
 function App() {
 	const courses: CourseCardProps[] = mockedCoursesList.map((course) => {
 		return {
@@ -17,7 +19,7 @@ function App() {
 		};
 	});
 	return (
-		<div className='App'>
+		<div className='app'>
 			<Header username='Harry Potter' />
 			<Courses courses={courses} />
 		</div>
