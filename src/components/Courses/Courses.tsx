@@ -21,16 +21,19 @@ export const Courses = ({ courses }: CoursesProps) => {
 				<Button text='Add new course' onClickFunction={fakeClick} />
 			</div>
 			<ul>
-				{courses.map(({ id, title, duration, creationDate, description }) => (
-					<CourseCard
-						key={id}
-						id={id}
-						title={title}
-						duration={duration}
-						creationDate={creationDate}
-						description={description}
-					/>
-				))}
+				{courses.map(
+					({ id, title, duration, creationDate, description, changeState }) => (
+						<CourseCard
+							key={id}
+							id={id}
+							title={title}
+							duration={duration}
+							creationDate={creationDate}
+							description={description}
+							changeState={changeState}
+						/>
+					)
+				)}
 			</ul>
 		</div>
 	);

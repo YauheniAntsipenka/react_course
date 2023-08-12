@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Button } from '../../../../common/Button/Button';
 
@@ -7,10 +7,12 @@ import { CourseCardProps } from './CourseCard.types';
 import './coursecard.scss';
 
 export const CourseCard = ({
+	id,
 	title,
 	duration,
 	creationDate,
 	description,
+	changeState,
 }: CourseCardProps) => {
 	return (
 		<li>
@@ -38,7 +40,13 @@ export const CourseCard = ({
 							</div>
 						</div>
 						<div className='buttonsGroup'>
-							<Button text='SHOW COURSE' onClickFunction={fakeClick} />
+							<Button
+								text='SHOW COURSE'
+								onClickFunction={() => {
+									console.log(id);
+									changeState('showCourse', id);
+								}}
+							/>
 						</div>
 					</div>
 				</div>
@@ -46,7 +54,3 @@ export const CourseCard = ({
 		</li>
 	);
 };
-
-function fakeClick() {
-	console.log('clicked');
-}

@@ -4,4 +4,5 @@ export interface CourseCardProps {
 	duration: number;
 	creationDate: string;
 	description: string;
+	changeState: (activeView: string, courseIdToShow: string) => any;
 }
