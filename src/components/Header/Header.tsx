@@ -12,7 +12,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
 		<div className='header'>
 			<Logo />
 			<span className='username'>{props.username}</span>
-			<Button text='logout' onClickFunction={onSave} />
+			<Button text='LOGOUT' onClickFunction={onSave} />
 		</div>
 	);
 };
