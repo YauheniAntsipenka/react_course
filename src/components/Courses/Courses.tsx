@@ -1,10 +1,11 @@
 import React from 'react';
 
-import { CoursesProps } from './Courses.types';
 import { CourseCard } from './components/CourseCard/CourseCard';
+import { Button } from '../../common/Button/Button';
+
+import { CoursesProps } from './Courses.types';
 
 import './courses.scss';
-import { Button } from '../../common/Button/Button';
 
 export const Courses = ({ courses }: CoursesProps) => {
 	if (!courses?.length) {

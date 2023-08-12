@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { mockedCoursesList, mockedAuthorsList } from './constants';
 
@@ -9,6 +9,8 @@ import { CourseCardProps } from './components/Courses/components/CourseCard/Cour
 import './app.scss';
 
 function App() {
+	const [state, setState] = useState('start');
+
 	const courses: CourseCardProps[] = mockedCoursesList.map((course) => {
 		return {
 			id: course.id,
@@ -21,7 +23,7 @@ function App() {
 	return (
 		<div className='app'>
 			<Header username='Harry Potter' />
-			<Courses courses={courses} />
+			{state === 'start' && <Courses courses={courses} />}
 		</div>
 	);
 }
