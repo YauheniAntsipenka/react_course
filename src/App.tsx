@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 
-import { mockedCoursesList, mockedAuthorsList } from './constants';
+import { mockedCoursesList } from './constants';
 
 import { Courses } from './components/Courses/Courses';
 import { CourseInfo } from './components/CourseInfo/CourseInfo';
 import { Header } from './components/Header/Header';
 import { CourseCardProps } from './components/Courses/components/CourseCard/CourseCard.types';
+import { getDuration } from './helpers/getCourseDuration';
+import { getAuthors } from './helpers/getAuthorsNames';
 
 import './app.scss';
 
@@ -50,18 +52,3 @@ function App() {
 }
 
 export default App;
-
-function getAuthors(authorsIds: string[]) {
-	return authorsIds
-		.map(
-			(authorId) =>
-				mockedAuthorsList.find((author) => author.id === authorId)?.name
-		)
-		.join(', ');
-}
-
-function getDuration(timeInMinutes: number) {
-	let m = timeInMinutes % 60;
-	let h = (timeInMinutes - m) / 60;
-	return h.toString() + ':' + m.toString() + ' hours';
-}
