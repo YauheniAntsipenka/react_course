@@ -26,7 +26,7 @@ function App() {
 			id: course.id,
 			title: course.title,
 			description: course.description,
-			duration: course.duration,
+			duration: getDuration(course.duration),
 			creationDate: course.creationDate,
 			authors: getAuthors(course.authors),
 			changeState: changeState,
@@ -58,4 +58,10 @@ function getAuthors(authorsIds: string[]) {
 				mockedAuthorsList.find((author) => author.id === authorId)?.name
 		)
 		.join(', ');
+}
+
+function getDuration(timeInMinutes: number) {
+	let m = timeInMinutes % 60;
+	let h = (timeInMinutes - m) / 60;
+	return h.toString() + ':' + m.toString() + ' hours';
 }
