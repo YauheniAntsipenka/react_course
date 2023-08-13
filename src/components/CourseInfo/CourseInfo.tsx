@@ -26,31 +26,43 @@ export const CourseInfo: React.FC<CourseInfoProps> = (props) => {
 								</div>
 							</div>
 							<div className='courseInfoSeparator'></div>
-							<div className='courseInfoAdditionalInfoGeneralGroup'>
+							<div className='courseInfoAdditionalInfoGeneralGroupWithCategories'>
 								<div className='courseInfoAdditionalInfoGroup'>
 									<div className='courseInfoAdditionalInfoIdGroup'>
 										<span className='courseInfoAdditionalInfoCategoryName'>
 											ID:
 										</span>
-										<span>&nbsp;{courseToShow.id}</span>
 									</div>
 									<div className='courseInfoAdditionalInfoDurationGroup'>
 										<span className='courseInfoAdditionalInfoCategoryName'>
 											Duration:
 										</span>
-										<span>&nbsp;{courseToShow.duration}</span>
 									</div>
 									<div className='courseInfoAdditionalInfoCreationDateGroup'>
 										<span className='courseInfoAdditionalInfoCategoryName'>
 											Created:
 										</span>
-										<span>&nbsp;{courseToShow.creationDate}</span>
 									</div>
 									<div className='courseInfoAdditionalInfoAuthorsGroup'>
 										<span className='courseInfoAdditionalInfoCategoryName'>
 											Authors:
 										</span>
-										<span>&nbsp;{courseToShow.duration}</span>
+									</div>
+								</div>
+							</div>
+							<div className='courseInfoAdditionalInfoGeneralGroupWithValues'>
+								<div className='courseInfoAdditionalInfoGroup'>
+									<div className='courseInfoAdditionalInfoIdGroup'>
+										<span>{courseToShow.id}</span>
+									</div>
+									<div className='courseInfoAdditionalInfoDurationGroup'>
+										<span>{courseToShow.duration}</span>
+									</div>
+									<div className='courseInfoAdditionalInfoCreationDateGroup'>
+										<span>{courseToShow.creationDate}</span>
+									</div>
+									<div className='courseInfoAdditionalInfoAuthorsGroup'>
+										<span>{courseToShow.duration}</span>
 									</div>
 								</div>
 							</div>
@@ -58,7 +70,7 @@ export const CourseInfo: React.FC<CourseInfoProps> = (props) => {
 					</div>
 					<div className='courseInfoAdditionalInfoButtonsGroup'>
 						<Button
-							text='BACK TO MAIN'
+							text='BACK'
 							onClickFunction={() => {
 								props.changeState('start', '');
 							}}
