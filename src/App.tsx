@@ -27,7 +27,7 @@ function App() {
 			title: course.title,
 			description: course.description,
 			duration: getDuration(course.duration),
-			creationDate: course.creationDate,
+			creationDate: new Date(course.creationDate),
 			authors: getAuthors(course.authors),
 			changeState: changeState,
 		};

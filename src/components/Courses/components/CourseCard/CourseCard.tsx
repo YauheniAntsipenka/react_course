@@ -37,7 +37,7 @@ export const CourseCard = ({
 							</div>
 							<div className='creationDateGroup'>
 								<span className='categoryName'>Created:</span>
-								<span>&nbsp;{creationDate}</span>
+								<span>&nbsp;{creationDate.toLocaleDateString('ru-RU')}</span>
 							</div>
 						</div>
 						<div className='buttonsGroup'>
