@@ -11,6 +11,7 @@ export const CourseCard = ({
 	title,
 	duration,
 	creationDate,
+	authors,
 	description,
 	changeState,
 }: CourseCardProps) => {
@@ -28,7 +29,7 @@ export const CourseCard = ({
 						<div className='infoGroup'>
 							<div className='authorsGroup'>
 								<span className='categoryName'>Authors:</span>
-								<span>&nbsp;{duration}</span>
+								<span>&nbsp;{authors}</span>
 							</div>
 							<div className='durationGroup'>
 								<span className='categoryName'>Duration:</span>

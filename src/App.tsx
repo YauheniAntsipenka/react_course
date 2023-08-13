@@ -28,6 +28,7 @@ function App() {
 			description: course.description,
 			duration: course.duration,
 			creationDate: course.creationDate,
+			authors: getAuthors(course.authors),
 			changeState: changeState,
 		};
 	});
@@ -49,3 +50,12 @@ function App() {
 }
 
 export default App;
+
+function getAuthors(authorsIds: string[]) {
+	return authorsIds
+		.map(
+			(authorId) =>
+				mockedAuthorsList.find((author) => author.id === authorId)?.name
+		)
+		.join(', ');
+}

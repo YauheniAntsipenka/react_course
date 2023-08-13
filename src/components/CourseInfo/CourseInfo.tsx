@@ -62,7 +62,7 @@ export const CourseInfo: React.FC<CourseInfoProps> = (props) => {
 										<span>{courseToShow.creationDate}</span>
 									</div>
 									<div className='courseInfoAdditionalInfoAuthorsGroup'>
-										<span>{courseToShow.duration}</span>
+										<span>{courseToShow.authors}</span>
 									</div>
 								</div>
 							</div>

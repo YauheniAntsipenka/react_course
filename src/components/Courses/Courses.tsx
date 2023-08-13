@@ -22,13 +22,22 @@ export const Courses = ({ courses }: CoursesProps) => {
 			</div>
 			<ul>
 				{courses.map(
-					({ id, title, duration, creationDate, description, changeState }) => (
+					({
+						id,
+						title,
+						duration,
+						creationDate,
+						authors,
+						description,
+						changeState,
+					}) => (
 						<CourseCard
 							key={id}
 							id={id}
 							title={title}
 							duration={duration}
 							creationDate={creationDate}
+							authors={authors}
 							description={description}
 							changeState={changeState}
 						/>
