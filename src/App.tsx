@@ -10,6 +10,7 @@ import { getDuration } from './helpers/getCourseDuration';
 import { getAuthors } from './helpers/getAuthorsNames';
 
 import './app.scss';
+import { EmptyCourseList } from './components/Courses/components/EmptyCourseList/EmptyCourseList';
 
 function App() {
 	const [activeView, setActiveView] = useState('start');
@@ -44,9 +45,10 @@ function App() {
 			{activeView === 'start' && (
 				<Courses changeState={changeState} courses={courses} />
 			)}
-			{activeView === 'showCourse' && (
+			{activeView === 'showCourse' && courses?.length && (
 				<CourseInfo changeState={changeState} courseCard={courseToShow} />
 			)}
+			{activeView === 'showCourse' && !courses?.length && <EmptyCourseList />}
 		</div>
 	);
 }

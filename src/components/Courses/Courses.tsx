@@ -8,13 +8,6 @@ import { CoursesProps } from './Courses.types';
 import './courses.scss';
 
 export const Courses = ({ courses }: CoursesProps) => {
-	if (!courses?.length) {
-		return (
-			<div className='courses'>
-				<h1>NO COURSES</h1>
-			</div>
-		);
-	}
 	return (
 		<div className='courses'>
 			<div className='addNewCourseButton'>
