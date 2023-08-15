@@ -1,6 +1,7 @@
 {
   "name": "react-app",
   "version": "0.1.0",
+  "homepage": "https://yauheniantsipenka.github.io/react_course/",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
@@ -21,7 +22,9 @@
     "eslint:fix": "eslint --fix --ext .js --ext .jsx src",
     "test:nowatch": "react-scripts test --watchAll=false",
     "prepare": "husky install",
-    "prepublish": "npm run eslint:fix"
+    "prepublish": "npm run eslint:fix",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -51,6 +54,7 @@
     "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-react": "^7.33.1",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "gh-pages": "^6.0.0",
     "husky": "^8.0.3",
     "prettier": "^3.0.1"
   }
