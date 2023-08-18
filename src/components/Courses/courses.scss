@@ -1,0 +1,33 @@
+.courses {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2%;
+}
+
+.addNewCourseButton {
+    width: 80%;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;   
+
+    text-align: center;
+}
+
+li {
+    display: inline-flex;
+    justify-content: center;
+    padding: 0 10px;
+    margin-bottom: 20px;
+}
