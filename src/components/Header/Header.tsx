@@ -11,12 +11,17 @@ export const Header: React.FC<HeaderProps> = (props) => {
 	return (
 		<div className='header'>
 			<Logo />
-			<span className='username'>{props.username}</span>
-			<Button text='LOGOUT' onClickFunction={onSave} />
+			{props.username !== undefined &&
+			props.buttonText !== undefined &&
+			props.buttonFunction !== undefined ? (
+				<>
+					<span className='username'>{props.username}</span>
+					<Button
+						text={props.buttonText}
+						onClickFunction={props.buttonFunction}
+					/>
+				</>
+			) : null}
 		</div>
 	);
 };
-
-function onSave() {
-	console.log('clicked');
-}

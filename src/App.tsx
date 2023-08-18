@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { mockedCoursesList } from './constants';
 
@@ -15,6 +16,9 @@ import { EmptyCourseList } from './components/Courses/components/EmptyCourseList
 function App() {
 	const [activeView, setActiveView] = useState('start');
 	const [courseIdToShow, setCourseIdToShow] = useState('');
+	const [isLogged, setIsLogged] = useState(false);
+
+	let navigate = useNavigate();
 
 	console.log(activeView);
 	console.log(courseIdToShow);
@@ -39,9 +43,23 @@ function App() {
 	if (courseToShow === undefined) {
 		courseToShow = {} as CourseCardProps;
 	}
+
 	return (
 		<div className='app'>
-			<Header username='Harry Potter' />
+			{isLogged ? (
+				<Header
+					username={'Harry Potter'}
+					buttonText={'LOGOUT'}
+					buttonFunction={() => console.log('logged')}
+				/>
+			) : (
+				<Header
+					username={''}
+					buttonText={'LOGIN'}
+					buttonFunction={() => navigate('/login')}
+				/>
+			)}
+
 			{activeView === 'start' && (
 				<Courses changeState={changeState} courses={courses} />
 			)}
