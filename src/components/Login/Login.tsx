@@ -6,8 +6,8 @@ import { Button } from '../../common/Button/Button';
 
 import { LoginProps } from './Login.types';
 
-import './login.scss';
-import '../../app.scss';
+import './Login.scss';
+import '../../App.scss';
 
 export const Login = () => {
 	return (

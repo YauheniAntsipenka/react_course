@@ -4,7 +4,7 @@ import { Button } from '../../../../common/Button/Button';
 
 import { CourseCardProps } from './CourseCard.types';
 
-import './coursecard.scss';
+import './Coursecard.scss';
 
 export const CourseCard = ({
 	id,

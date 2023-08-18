@@ -4,7 +4,7 @@ import { Button } from '../../common/Button/Button';
 
 import { CourseInfoProps } from './CourseInfo.types';
 
-import './courseinfo.scss';
+import './Courseinfo.scss';
 
 export const CourseInfo: React.FC<CourseInfoProps> = (props) => {
 	const courseToShow = props.courseCard;

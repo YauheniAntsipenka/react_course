@@ -5,7 +5,7 @@ import { Button } from '../../common/Button/Button';
 
 import { CoursesProps } from './Courses.types';
 
-import './courses.scss';
+import './Courses.scss';
 
 export const Courses = ({ courses }: CoursesProps) => {
 	return (

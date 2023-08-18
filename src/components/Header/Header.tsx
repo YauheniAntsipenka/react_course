@@ -5,7 +5,7 @@ import { Button } from '../../common/Button/Button';
 
 import { HeaderProps } from './Header.types';
 
-import './header.scss';
+import './Header.scss';
 
 export const Header: React.FC<HeaderProps> = (props) => {
 	return (

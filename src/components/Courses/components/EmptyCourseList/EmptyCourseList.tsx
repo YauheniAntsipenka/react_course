@@ -2,7 +2,7 @@ import React from 'react';
 
 import { EmptyCourseListProps } from './EmptyCourseList.types';
 
-import './emptycourselist.scss';
+import './Emptycourselist.scss';
 import { Button } from '../../../../common/Button/Button';
 
 export const EmptyCourseList: React.FC<EmptyCourseListProps> = () => {
