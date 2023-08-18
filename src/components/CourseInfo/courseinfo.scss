@@ -21,10 +21,7 @@
 }
 
 .courseInfoNote {
-    height: 80%;
-
     display: flex;
-    flex-direction: column;
     justify-content: center;
 
     background: #FFFFFF;
@@ -35,56 +32,21 @@
 }
 
 .courseInfoCard {
-    height: 80%;
-    width: 80%;
-    margin-left: 10%;
-    display: flex;
-    align-items: flex-start;
-}
-
-.courseInfoDescription {
-    height: 90%;
     width: 60%;
+    margin-left: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+
     margin-right: 1%;
+    border-right: 1px solid #CFCFCF;
+    padding: 1%;
 
     color: #333E48;
-    
-    display: flex;
-    align-items: flex-start;
-    text-align: left;
 }
 
-.courseInfoDescriptionElements {
-    display: flex;
-    flex-direction: column;
-}
-
-span {
-    display: flex;
-    align-items: center;
-}
-
-.courseInfoSeparator {
-    position: inherit;
-    margin-top: 2%;
-    height: 70%;
-    width: 1px;
-    background: #CFCFCF;
-}
-
-.courseInfoAdditionalInfoGeneralGroupWithCategories {
-    height: 90%;
-    width: 10%;
-    margin-left: 2%;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-}
-
-.courseInfoAdditionalInfoGeneralGroupWithValues {
-    height: 90%;
+.courseInfoAdditionalInfoGeneralGroup {
     width: 40%;
     margin-left: 2%;
 
@@ -92,43 +54,19 @@ span {
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
+    gap: 2%;
 }
 
 .courseInfoAdditionalInfoGroup {
-    width: 100%;
-    height: 70%;
+    width: 90%;
 
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
-}
-
-.courseInfoAdditionalInfoIdGroup {
-    height: 25px;
-    display: inline-flex;
-    align-items: flex-start;
-}
-
-.courseInfoAdditionalInfoDurationGroup {
-    height: 25px;
-    display: inline-flex;
-    align-items: flex-start;
-}
-
-.courseInfoAdditionalInfoCreationDateGroup {
-    height: 25px;
-    display: inline-flex;
-    align-items: flex-start;
-}
-
-.courseInfoAdditionalInfoAuthorsGroup {
-    height: 25px;
-    display: inline-flex;
-    align-items: flex-start;
+    gap: 2%;
+    justify-content: flex-start;
 }
 
 .courseInfoAdditionalInfoCategoryName {
+    min-width: 100px;
     font-weight: bold;
     color: #333E48;
 }
