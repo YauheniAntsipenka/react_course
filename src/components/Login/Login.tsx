@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { Header } from '../Header/Header';
 import { Button } from '../../common/Button/Button';
+import { Input } from '../../common/Input/Input';
 
 import { LoginProps } from './Login.types';
 
@@ -17,11 +18,17 @@ export const Login = () => {
 				<h2>Login</h2>
 				<div className='loginForm'>
 					<h5>Email</h5>
-					<input></input>
+					<Input
+						placeholder='Input text'
+						onChangeFunction={() => console.log()}
+					/>
 					<h5>Password</h5>
-					<input></input>
+					<Input
+						placeholder='Input text'
+						onChangeFunction={() => console.log()}
+					/>
 					<Button text='LOGIN' onClickFunction={() => {}} />
-					<span>If you don't have an account you may</span>
+					<p>If you don't have an account you may</p>
 					<Link to={'/'}>Registration</Link>
 				</div>
 			</div>

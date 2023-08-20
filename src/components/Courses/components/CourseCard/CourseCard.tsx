@@ -15,31 +15,37 @@ export const CourseCard = ({
 	description,
 	changeState,
 }: CourseCardProps) => {
+	const ADDITIONAL_INFO = [
+		{
+			id: 'Authors:',
+			value: authors,
+		},
+		{
+			id: 'Duration:',
+			value: duration,
+		},
+		{
+			id: 'Created:',
+			value: creationDate.toLocaleDateString('ru-RU'),
+		},
+	];
 	return (
 		<li>
 			<div className='card'>
-				<div className='title'>
-					<h3>{title}</h3>
-				</div>
+				<h3 className='title'>{title}</h3>
 				<div className='courseInfo'>
 					<div className='description'>
 						<span>{description}</span>
 					</div>
-					<div className='additionalInfoGroup'>
-						<div className='infoGroup'>
-							<div className='authorsGroup'>
-								<span className='categoryName'>Authors:</span>
-								<span>&nbsp;{authors}</span>
-							</div>
-							<div className='durationGroup'>
-								<span className='categoryName'>Duration:</span>
-								<span>&nbsp;{duration}</span>
-							</div>
-							<div className='creationDateGroup'>
-								<span className='categoryName'>Created:</span>
-								<span>&nbsp;{creationDate.toLocaleDateString('ru-RU')}</span>
-							</div>
-						</div>
+					<div className='courseInfoInfoGeneralGroup'>
+						{ADDITIONAL_INFO.map((item) => {
+							return (
+								<div key={item.id} className={'additionalInfoGroup'}>
+									<span className={'categoryName'}>{item.id}&nbsp;</span>
+									<span>{item.value}</span>
+								</div>
+							);
+						})}
 						<div className='buttonsGroup'>
 							<Button
 								text='SHOW COURSE'

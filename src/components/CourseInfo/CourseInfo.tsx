@@ -31,9 +31,7 @@ export const CourseInfo: React.FC<CourseInfoProps> = (props) => {
 	return (
 		<div className='courseInfoBody'>
 			<div className='courseInfoGeneral'>
-				<div className='courseInfoGeneralTitle'>
-					<h2>{courseToShow.title}</h2>
-				</div>
+				<h2 className='courseInfoGeneralTitle'>{courseToShow.title}</h2>
 				<div className='courseInfoNote'>
 					<div className='courseInfoCard'>
 						<h3>Description:</h3>
