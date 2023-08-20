@@ -53,14 +53,6 @@ export const Login = () => {
 				</div>
 			),
 		},
-		{
-			id: "If you don't have an account you may",
-			value: (
-				<div className='registrationLink'>
-					<Link to={'/'}>Registration</Link>
-				</div>
-			),
-		},
 	];
 
 	return (
@@ -78,6 +70,12 @@ export const Login = () => {
 								</div>
 							);
 						})}
+						<div className='registrationGroup'>
+							If you have an account you may
+							<div className='registrationLink'>
+								<Link to={'/register'}>Registration</Link>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

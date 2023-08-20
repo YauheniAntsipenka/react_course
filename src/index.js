@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 import App from './App.tsx';
 import { Login } from './components/Login/Login.tsx';
+import { Registration } from './components/Registration/Registration.tsx';
 
 import './index.css';
 
@@ -14,6 +15,7 @@ root.render(
 			<Routes>
 				<Route path='/' element={<App />} />
 				<Route path='/login' element={<Login />} />
+				<Route path='/register' element={<Registration />} />
 			</Routes>
 		</React.StrictMode>
 	</BrowserRouter>

@@ -1,4 +1,4 @@
-.loginBody {
+.registrationBody {
     margin-top: 10%;
     
     font-family: 'Open Sans', serif;
@@ -12,7 +12,7 @@
     align-items: center;
 }
 
-.loginForm {
+.registrationForm {
     width: 500px;
     height: 500px;
 
@@ -26,22 +26,20 @@
     border-radius: 2px;
 }
 
-.loginGroups {
+.registrationGroups {
     height: 80%;
     width: 70%;
 
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-between;
 }
 
-.loginScreenLoginButton {
+.registrationScreenLoginButton {
     width: 100%;
     height: 50px;
 }
 
-.registrationGroup {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.loginLink {
+    text-align: center;
 }
