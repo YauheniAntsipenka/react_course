@@ -10,7 +10,7 @@ import './Courses.scss';
 export const Courses = ({ courses }: CoursesProps) => {
 	return (
 		<div className='courses'>
-			<div className='addNewCourseButton'>
+			<div className='addNewCourseButton justify-end'>
 				<Button text='Add new course' onClickFunction={fakeClick} />
 			</div>
 			<ul>

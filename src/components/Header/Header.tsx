@@ -16,10 +16,12 @@ export const Header: React.FC<HeaderProps> = (props) => {
 			props.buttonFunction !== undefined ? (
 				<>
 					<span className='username'>{props.username}</span>
-					<Button
-						text={props.buttonText}
-						onClickFunction={props.buttonFunction}
-					/>
+					<div className='loginButton'>
+						<Button
+							text={props.buttonText}
+							onClickFunction={props.buttonFunction}
+						/>
+					</div>
 				</>
 			) : null}
 		</div>

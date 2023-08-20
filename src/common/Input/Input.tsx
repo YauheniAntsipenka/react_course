@@ -4,5 +4,9 @@ import './Input.scss';
 import { InputProps } from './Input.types';
 
 export const Input: React.FC<InputProps> = (props) => (
-	<input placeholder={props.placeholder} onChange={props.onChangeFunction} />
+	<input
+		className='input'
+		placeholder={props.placeholder}
+		onInput={props.onInputFunction}
+	/>
 );

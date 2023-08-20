@@ -11,25 +11,61 @@ import './Login.scss';
 import '../../App.scss';
 
 export const Login = () => {
+	let email = '';
+	let password = '';
+
+	const LOGIN_FIELDS = [
+		{
+			id: 'Email',
+			value: (
+				<Input
+					placeholder='Input text'
+					onInputFunction={(e) => (email = e.target.value)}
+				/>
+			),
+		},
+		{
+			id: 'Password',
+			value: (
+				<Input
+					placeholder='Input text'
+					onInputFunction={(e) => (password = e.target.value)}
+				/>
+			),
+		},
+		{
+			id: '',
+			value: (
+				<Button
+					text='LOGIN'
+					onClickFunction={() => {
+						console.log(email + ' ' + password);
+					}}
+				/>
+			),
+		},
+		{
+			id: "If you don't have an account you may",
+			value: <Link to={'/'}>Registration</Link>,
+		},
+	];
+
 	return (
 		<div className='app'>
 			<Header />
 			<div className='loginBody'>
 				<h2>Login</h2>
 				<div className='loginForm'>
-					<h5>Email</h5>
-					<Input
-						placeholder='Input text'
-						onChangeFunction={() => console.log()}
-					/>
-					<h5>Password</h5>
-					<Input
-						placeholder='Input text'
-						onChangeFunction={() => console.log()}
-					/>
-					<Button text='LOGIN' onClickFunction={() => {}} />
-					<p>If you don't have an account you may</p>
-					<Link to={'/'}>Registration</Link>
+					<div className='loginGroups'>
+						{LOGIN_FIELDS.map((item) => {
+							return (
+								<div key={item.id}>
+									<div className={'fieldName'}>{item.id}</div>
+									{item.value}
+								</div>
+							);
+						})}
+					</div>
 				</div>
 			</div>
 		</div>
