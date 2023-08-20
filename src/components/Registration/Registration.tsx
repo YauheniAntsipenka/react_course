@@ -57,6 +57,7 @@ export const Registration = () => {
 							};
 							fetch('http://localhost:4000/register', {
 								method: 'POST',
+								headers: new Headers({ 'content-type': 'application/json' }),
 								body: JSON.stringify(data),
 							})
 								.then((response) => console.log(response.json))
