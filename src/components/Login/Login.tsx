@@ -36,17 +36,23 @@ export const Login = () => {
 		{
 			id: '',
 			value: (
-				<Button
-					text='LOGIN'
-					onClickFunction={() => {
-						console.log(email + ' ' + password);
-					}}
-				/>
+				<div className='loginScreenLoginButton'>
+					<Button
+						text='LOGIN'
+						onClickFunction={() => {
+							console.log(email + ' ' + password);
+						}}
+					/>
+				</div>
 			),
 		},
 		{
 			id: "If you don't have an account you may",
-			value: <Link to={'/'}>Registration</Link>,
+			value: (
+				<div className='registrationLink'>
+					<Link to={'/'}>Registration</Link>
+				</div>
+			),
 		},
 	];
 
@@ -60,7 +66,7 @@ export const Login = () => {
 						{LOGIN_FIELDS.map((item) => {
 							return (
 								<div key={item.id}>
-									<div className={'fieldName'}>{item.id}</div>
+									<div>{item.id}</div>
 									{item.value}
 								</div>
 							);

@@ -21,16 +21,24 @@
     align-items: center;
     justify-content: center;
 
-    background: #FFF;
     border: 1px solid rgba(0, 0, 0, 0.12);
     border-radius: 2px;
 }
 
 .loginGroups {
-    height: 70%;
+    height: 80%;
     width: 70%;
 
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-evenly;
+}
+
+.loginScreenLoginButton {
+    width: 100%;
+    height: 50px;
+}
+
+.registrationLink {
+    text-align: center;
 }
