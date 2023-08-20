@@ -40,7 +40,14 @@ export const Login = () => {
 					<Button
 						text='LOGIN'
 						onClickFunction={() => {
-							console.log(email + ' ' + password);
+							const data: LoginProps = { email: email, password: password };
+							fetch('http://localhost:4000/login', {
+								method: 'POST',
+								body: JSON.stringify(data),
+							})
+								.then((response) => console.log(response.json))
+								.catch((error) => console.log(error));
+							console.log(data);
 						}}
 					/>
 				</div>
