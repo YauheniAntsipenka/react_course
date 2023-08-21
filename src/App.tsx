@@ -17,12 +17,8 @@ function App() {
 	const [activeView, setActiveView] = useState('start');
 	const [courseIdToShow, setCourseIdToShow] = useState('');
 	const [token, setToken] = useState(localStorage.getItem('token'));
-	console.log(token);
 
-	let navigate = useNavigate();
-
-	console.log(activeView);
-	console.log(courseIdToShow);
+	const navigate = useNavigate();
 
 	function changeState(activeView: string, courseIdToShow: string) {
 		setActiveView(activeView);
@@ -40,37 +36,39 @@ function App() {
 			changeState: changeState,
 		};
 	});
+
 	let courseToShow = courses.find((course) => course.id === courseIdToShow);
 	if (courseToShow === undefined) {
 		courseToShow = {} as CourseCardProps;
 	}
 
+	let isTokenPresent = token !== null && token !== undefined;
+
 	return (
 		<div className='app'>
-			{token !== null && token !== undefined ? (
+			{isTokenPresent ? (
 				<Header
 					username={'Harry Potter'}
 					buttonText={'LOGOUT'}
 					buttonFunction={() => {
 						localStorage.removeItem('token');
 						setToken(null);
+						navigate('/login');
 					}}
 				/>
 			) : (
-				<Header
-					username={''}
-					buttonText={'LOGIN'}
-					buttonFunction={() => navigate('/login')}
-				/>
+				<div />
 			)}
 
-			{activeView === 'start' && (
+			{isTokenPresent && activeView === 'start' && (
 				<Courses changeState={changeState} courses={courses} />
 			)}
-			{activeView === 'showCourse' && courses?.length && (
+			{isTokenPresent && activeView === 'showCourse' && courses?.length && (
 				<CourseInfo changeState={changeState} courseCard={courseToShow} />
 			)}
-			{activeView === 'showCourse' && !courses?.length && <EmptyCourseList />}
+			{isTokenPresent && activeView === 'showCourse' && !courses?.length && (
+				<EmptyCourseList />
+			)}
 		</div>
 	);
 }
