@@ -62,8 +62,11 @@ export const Registration = () => {
 								headers: new Headers({ 'content-type': 'application/json' }),
 								body: JSON.stringify(data),
 							})
-								.then(() => {
-									navigate('/login');
+								.then((response) => response.json())
+								.then((responseData) => {
+									if (responseData.successful === true) {
+										navigate('/login');
+									}
 								})
 								.catch((error) => console.log(error));
 							console.log(data);
