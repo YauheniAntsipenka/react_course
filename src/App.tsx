@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import { mockedCoursesList } from './constants';
 
@@ -16,7 +16,8 @@ import { EmptyCourseList } from './components/Courses/components/EmptyCourseList
 function App() {
 	const [activeView, setActiveView] = useState('start');
 	const [courseIdToShow, setCourseIdToShow] = useState('');
-	const [isLogged, setIsLogged] = useState(false);
+	const [token, setToken] = useState(localStorage.getItem('token'));
+	console.log(token);
 
 	let navigate = useNavigate();
 
@@ -46,11 +47,14 @@ function App() {
 
 	return (
 		<div className='app'>
-			{isLogged ? (
+			{token !== null && token !== undefined ? (
 				<Header
 					username={'Harry Potter'}
 					buttonText={'LOGOUT'}
-					buttonFunction={() => console.log('logged')}
+					buttonFunction={() => {
+						localStorage.removeItem('token');
+						setToken(null);
+					}}
 				/>
 			) : (
 				<Header

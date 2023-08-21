@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { Header } from '../Header/Header';
 import { Button } from '../../common/Button/Button';
@@ -11,10 +11,22 @@ import './Login.scss';
 import '../../App.scss';
 
 export const Login = () => {
+	let name = '';
 	let email = '';
 	let password = '';
 
+	const navigate = useNavigate();
+
 	const LOGIN_FIELDS = [
+		{
+			id: 'Name',
+			value: (
+				<Input
+					placeholder='Input text'
+					onInputFunction={(e) => (name = e.target.value)}
+				/>
+			),
+		},
 		{
 			id: 'Email',
 			value: (
@@ -40,14 +52,22 @@ export const Login = () => {
 					<Button
 						text='LOGIN'
 						onClickFunction={() => {
-							const data: LoginProps = { email: email, password: password };
+							const data: LoginProps = {
+								name: name,
+								email: email,
+								password: password,
+							};
 							fetch('http://localhost:4000/login', {
 								method: 'POST',
+								headers: new Headers({ 'content-type': 'application/json' }),
 								body: JSON.stringify(data),
 							})
-								.then((response) => console.log(response.json))
+								.then((response) => response.json())
+								.then((responseData) => {
+									localStorage.setItem('token', responseData.result);
+									navigate('/courses');
+								})
 								.catch((error) => console.log(error));
-							console.log(data);
 						}}
 					/>
 				</div>

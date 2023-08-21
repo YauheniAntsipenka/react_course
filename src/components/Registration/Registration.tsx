@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { Header } from '../Header/Header';
 import { Button } from '../../common/Button/Button';
@@ -14,6 +14,8 @@ export const Registration = () => {
 	let email = '';
 	let name = '';
 	let password = '';
+
+	const navigate = useNavigate();
 
 	const REGISTRATION_FIELDS = [
 		{
@@ -60,7 +62,9 @@ export const Registration = () => {
 								headers: new Headers({ 'content-type': 'application/json' }),
 								body: JSON.stringify(data),
 							})
-								.then((response) => console.log(response.json))
+								.then(() => {
+									navigate('/login');
+								})
 								.catch((error) => console.log(error));
 							console.log(data);
 						}}
