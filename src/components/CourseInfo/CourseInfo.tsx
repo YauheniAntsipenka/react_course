@@ -1,13 +1,17 @@
 import React from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import { Button } from '../../common/Button/Button';
 
-import { CourseInfoProps } from './CourseInfo.types';
-
 import './Courseinfo.scss';
+import { getCourses } from '../../helpers/getCourses';
+import { getCourseToShow } from '../../helpers/getCourseToShow';
 
-export const CourseInfo: React.FC<CourseInfoProps> = (props) => {
-	const courseToShow = props.courseCard;
+export const CourseInfo = () => {
+	const { courseId } = useParams();
+	const navigate = useNavigate();
+
+	const courseToShow = getCourseToShow(getCourses(), courseId);
 
 	const ADDITIONAL_INFO = [
 		{
@@ -55,7 +59,7 @@ export const CourseInfo: React.FC<CourseInfoProps> = (props) => {
 					<Button
 						text='BACK'
 						onClickFunction={() => {
-							props.changeState('start', '');
+							navigate('/courses');
 						}}
 					/>
 				</div>

@@ -5,5 +5,4 @@ export interface CourseCardProps {
 	creationDate: Date;
 	authors: string;
 	description: string;
-	changeState: (activeView: string, courseIdToShow: string) => any;
 }
