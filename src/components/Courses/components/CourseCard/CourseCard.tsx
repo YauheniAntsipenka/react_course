@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Button } from '../../../../common/Button/Button';
 
@@ -13,8 +14,8 @@ export const CourseCard = ({
 	creationDate,
 	authors,
 	description,
-	changeState,
 }: CourseCardProps) => {
+	const navigate = useNavigate();
 	const ADDITIONAL_INFO = [
 		{
 			id: 'Authors:',
@@ -50,8 +51,7 @@ export const CourseCard = ({
 							<Button
 								text='SHOW COURSE'
 								onClickFunction={() => {
-									console.log(id);
-									changeState('showCourse', id);
+									navigate('/courses/' + id);
 								}}
 							/>
 						</div>
