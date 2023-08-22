@@ -22,6 +22,7 @@ export const Registration = () => {
 			id: 'Name',
 			value: (
 				<Input
+					id='input_reg_name_id'
 					placeholder='Input text'
 					onInputFunction={(e) => (name = e.target.value)}
 				/>
@@ -31,6 +32,7 @@ export const Registration = () => {
 			id: 'Email',
 			value: (
 				<Input
+					id='input_reg_email_id'
 					placeholder='Input text'
 					onInputFunction={(e) => (email = e.target.value)}
 				/>
@@ -40,6 +42,7 @@ export const Registration = () => {
 			id: 'Password',
 			value: (
 				<Input
+					id='input_reg_password_id'
 					placeholder='Input text'
 					onInputFunction={(e) => (password = e.target.value)}
 				/>

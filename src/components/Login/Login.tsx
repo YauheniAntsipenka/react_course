@@ -22,6 +22,7 @@ export const Login = () => {
 			id: 'Name',
 			value: (
 				<Input
+					id='input_login_name_id'
 					placeholder='Input text'
 					onInputFunction={(e) => (name = e.target.value)}
 				/>
@@ -31,6 +32,7 @@ export const Login = () => {
 			id: 'Email',
 			value: (
 				<Input
+					id='input_login_email_id'
 					placeholder='Input text'
 					onInputFunction={(e) => (email = e.target.value)}
 				/>
@@ -40,6 +42,7 @@ export const Login = () => {
 			id: 'Password',
 			value: (
 				<Input
+					id='input_login_password_id'
 					placeholder='Input text'
 					onInputFunction={(e) => (password = e.target.value)}
 				/>
@@ -65,7 +68,8 @@ export const Login = () => {
 								.then((response) => response.json())
 								.then((responseData) => {
 									localStorage.setItem('token', responseData.result);
-									navigate('/courses');
+									localStorage.setItem('username', responseData.user.name);
+									navigate('/courses', { replace: true });
 								})
 								.catch((error) => console.log(error));
 						}}

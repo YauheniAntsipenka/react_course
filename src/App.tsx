@@ -15,19 +15,20 @@ import { AppProps } from './App.types';
 
 function App() {
 	const [token, setToken] = useState(localStorage.getItem('token'));
+	const [username, setUsername] = useState(localStorage.getItem('username'));
 	const navigate = useNavigate();
 
 	let isTokenPresent = token !== null && token !== undefined;
 
 	return (
 		<div className='app'>
-			{isTokenPresent ? (
+			{isTokenPresent && username !== null ? (
 				<Header
-					username={'Harry Potter'}
+					username={username}
 					buttonText={'LOGOUT'}
 					buttonFunction={() => {
 						localStorage.removeItem('token');
-						setToken(null);
+						localStorage.removeItem('username');
 						navigate('/login');
 					}}
 				/>
