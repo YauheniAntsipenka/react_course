@@ -48,6 +48,10 @@ function App() {
 				<Route path='/login' element={<Login />} />
 				<Route path='/register' element={<Registration />} />
 				<Route path='/' element={<Navigate to='/login' replace={true} />} />
+				<Route
+					path='/react_course'
+					element={<Navigate to='/login' replace={true} />}
+				/>
 			</Routes>
 		</div>
 	);
