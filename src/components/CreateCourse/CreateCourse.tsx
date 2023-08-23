@@ -7,6 +7,8 @@ import { Input } from '../../common/Input/Input';
 import './CreateCourse.scss';
 import { AuthorItemProps } from './components/AuthorItem/AuthorItem.types';
 import { CourseProps } from './CreateCourse.types';
+import { getDuration } from '../../helpers/getCourseDuration';
+import { v4 as uuidv4 } from 'uuid';
 
 export const CreateCourse = () => {
 	const navigate = useNavigate();
@@ -14,9 +16,8 @@ export const CreateCourse = () => {
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
 	const [duration, setDuration] = useState(0);
-
-	let durationInHours = '00:00 hours';
-	const [authors, setAuthors] = useState([{ name: '' }]);
+	const [durationInHours, setDurationInHours] = useState('00:00 hours');
+	const [authors, setAuthors] = useState([{ name: '', id: '' }]);
 
 	const COURSE_INFO = [
 		{
@@ -54,7 +55,10 @@ export const CreateCourse = () => {
 							<Input
 								id='create_course_duration_id'
 								placeholder='Input text'
-								onInputFunction={(e) => setDuration(e.target.value)}
+								onInputFunction={(e) => {
+									setDuration(e.target.value);
+									setDurationInHours(getDuration(e.target.value));
+								}}
 								value={duration.toString()}
 							/>
 						</div>
@@ -82,7 +86,10 @@ export const CreateCourse = () => {
 								<Button
 									text='CREATE AUTHOR'
 									onClickFunction={() => {
-										let author: AuthorItemProps = { name: authorName };
+										let author: AuthorItemProps = {
+											name: authorName,
+											id: uuidv4(),
+										};
 										let tempArr = [...authors];
 										tempArr.push(author);
 										setAuthors(tempArr);
@@ -96,8 +103,8 @@ export const CreateCourse = () => {
 					<div className='infoGroup'>
 						<h5 className='h5'>Authors list</h5>
 						<ul>
-							{authors.map(({ name }) => (
-								<li>{name}</li>
+							{authors.map(({ name, id }) => (
+								<li key={id}>{name}</li>
 							))}
 						</ul>
 					</div>
