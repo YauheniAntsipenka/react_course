@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { Header } from '../Header/Header';
@@ -11,9 +11,9 @@ import './Registration.scss';
 import '../../App.scss';
 
 export const Registration = () => {
-	let email = '';
-	let name = '';
-	let password = '';
+	const [name, setName] = useState('');
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
 
 	const navigate = useNavigate();
 
@@ -24,7 +24,7 @@ export const Registration = () => {
 				<Input
 					id='input_reg_name_id'
 					placeholder='Input text'
-					onInputFunction={(e) => (name = e.target.value)}
+					onInputFunction={(e) => setName(e.target.value)}
 					value={name}
 				/>
 			),
@@ -35,7 +35,7 @@ export const Registration = () => {
 				<Input
 					id='input_reg_email_id'
 					placeholder='Input text'
-					onInputFunction={(e) => (email = e.target.value)}
+					onInputFunction={(e) => setEmail(e.target.value)}
 					value={email}
 				/>
 			),
@@ -46,7 +46,7 @@ export const Registration = () => {
 				<Input
 					id='input_reg_password_id'
 					placeholder='Input text'
-					onInputFunction={(e) => (password = e.target.value)}
+					onInputFunction={(e) => setPassword(e.target.value)}
 					value={password}
 				/>
 			),

@@ -10,10 +10,11 @@ import { AuthorItemProps } from './components/AuthorItem/AuthorItem.types';
 export const CreateCourse = () => {
 	const navigate = useNavigate();
 	const [authorName, setAuthorName] = useState('');
+	const [title, setTitle] = useState('');
+	const [description, setDescription] = useState('');
+	const [duration, setDuration] = useState('');
 
-	let title = '';
-	let description = '';
-	let duration = '00:00 hours';
+	let durationInHours = '00:00 hours';
 	const [authors, setAuthors] = useState([{ name: '' }]);
 
 	const COURSE_INFO = [
@@ -26,7 +27,7 @@ export const CreateCourse = () => {
 						<Input
 							id='create_course_title_id'
 							placeholder='Input text'
-							onInputFunction={(e) => (title = e.target.value)}
+							onInputFunction={(e) => setTitle(e.target.value)}
 							value={title}
 						/>
 					</div>
@@ -35,7 +36,7 @@ export const CreateCourse = () => {
 						<Input
 							id='create_course_description_id'
 							placeholder='Input text'
-							onInputFunction={(e) => (description = e.target.value)}
+							onInputFunction={(e) => setDescription(e.target.value)}
 							value={description}
 						/>
 					</div>
@@ -52,11 +53,11 @@ export const CreateCourse = () => {
 							<Input
 								id='create_course_duration_id'
 								placeholder='Input text'
-								onInputFunction={(e) => (title = e.target.value)}
-								value={title}
+								onInputFunction={(e) => setDuration(e.target.value)}
+								value={duration}
 							/>
 						</div>
-						<div className='durationInHours'>{duration}</div>
+						<div className='durationInHours'>{durationInHours}</div>
 					</div>
 				</div>
 			),
@@ -122,18 +123,22 @@ export const CreateCourse = () => {
 				</div>
 
 				<div className='createCourseButtonsGroup'>
-					<Button
-						text='CANCEL'
-						onClickFunction={() => {
-							navigate('/courses');
-						}}
-					/>
-					<Button
-						text='CREATE COURSE'
-						onClickFunction={() => {
-							navigate('/courses');
-						}}
-					/>
+					<div className='createCourseButton'>
+						<Button
+							text='CANCEL'
+							onClickFunction={() => {
+								navigate('/courses');
+							}}
+						/>
+					</div>
+					<div className='createCourseButton'>
+						<Button
+							text='CREATE COURSE'
+							onClickFunction={() => {
+								navigate('/courses');
+							}}
+						/>
+					</div>
 				</div>
 			</div>
 		</div>
