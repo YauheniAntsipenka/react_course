@@ -9,5 +9,6 @@ export const Input: React.FC<InputProps> = (props) => (
 		className='input'
 		placeholder={props.placeholder}
 		onInput={props.onInputFunction}
+		value={props.value}
 	/>
 );

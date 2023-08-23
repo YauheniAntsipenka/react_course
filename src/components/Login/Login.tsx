@@ -25,6 +25,7 @@ export const Login = () => {
 					id='input_login_name_id'
 					placeholder='Input text'
 					onInputFunction={(e) => (name = e.target.value)}
+					value={name}
 				/>
 			),
 		},
@@ -35,6 +36,7 @@ export const Login = () => {
 					id='input_login_email_id'
 					placeholder='Input text'
 					onInputFunction={(e) => (email = e.target.value)}
+					value={email}
 				/>
 			),
 		},
@@ -45,6 +47,7 @@ export const Login = () => {
 					id='input_login_password_id'
 					placeholder='Input text'
 					onInputFunction={(e) => (password = e.target.value)}
+					value={password}
 				/>
 			),
 		},
