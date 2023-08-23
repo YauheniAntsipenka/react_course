@@ -6,13 +6,14 @@ import { Input } from '../../common/Input/Input';
 
 import './CreateCourse.scss';
 import { AuthorItemProps } from './components/AuthorItem/AuthorItem.types';
+import { CourseProps } from './CreateCourse.types';
 
 export const CreateCourse = () => {
 	const navigate = useNavigate();
 	const [authorName, setAuthorName] = useState('');
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
-	const [duration, setDuration] = useState('');
+	const [duration, setDuration] = useState(0);
 
 	let durationInHours = '00:00 hours';
 	const [authors, setAuthors] = useState([{ name: '' }]);
@@ -54,7 +55,7 @@ export const CreateCourse = () => {
 								id='create_course_duration_id'
 								placeholder='Input text'
 								onInputFunction={(e) => setDuration(e.target.value)}
-								value={duration}
+								value={duration.toString()}
 							/>
 						</div>
 						<div className='durationInHours'>{durationInHours}</div>
@@ -135,7 +136,30 @@ export const CreateCourse = () => {
 						<Button
 							text='CREATE COURSE'
 							onClickFunction={() => {
-								navigate('/courses');
+								const data: CourseProps = {
+									title: title,
+									description: description,
+									duration: duration,
+									authors: authors,
+								};
+								const requestHeaders: HeadersInit = new Headers();
+								requestHeaders.set('Content-Type', 'application/json');
+								const token = localStorage.getItem('token');
+								requestHeaders.set(
+									'Authentication',
+									token !== null ? token : ''
+								);
+								fetch('http://localhost:4000/courses/add', {
+									method: 'POST',
+									headers: requestHeaders,
+									body: JSON.stringify(data),
+								})
+									.then((response) => response.json())
+									.then((responseData) => {
+										console.log(responseData);
+										navigate('/courses', { replace: true });
+									})
+									.catch((error) => console.log(error));
 							}}
 						/>
 					</div>
