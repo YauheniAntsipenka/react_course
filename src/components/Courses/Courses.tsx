@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { CourseCard } from './components/CourseCard/CourseCard';
 import { Button } from '../../common/Button/Button';
 

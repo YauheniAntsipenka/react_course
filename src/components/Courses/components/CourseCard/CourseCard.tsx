@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Button } from '../../../../common/Button/Button';
 
 import { CourseCardProps } from './CourseCard.types';

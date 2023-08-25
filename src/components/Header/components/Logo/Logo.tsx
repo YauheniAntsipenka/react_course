@@ -1,5 +1,3 @@
-import React from 'react';
-
 import mainLogo from '../../../../resources/logo.png';
 
 import './logo.scss';
