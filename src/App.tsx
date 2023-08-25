@@ -9,7 +9,7 @@ import { CourseCardProps } from './components/Courses/components/CourseCard/Cour
 import { getDuration } from './helpers/getCourseDuration';
 import { getAuthors } from './helpers/getAuthorsNames';
 
-import './app.scss';
+import './App.scss';
 import { EmptyCourseList } from './components/Courses/components/EmptyCourseList/EmptyCourseList';
 
 function App() {
