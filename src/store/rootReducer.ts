@@ -1,10 +1,11 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 import { coursesReducer } from './courses/reducer';
+import { userReducer } from './user/reducer';
 
 export const rootReducer = combineReducers({
 	courses: coursesReducer,
-	//could be extended by another slice of reducer that respond for other part of your app
+	user: userReducer,
 });
 
 export const store = configureStore({ reducer: rootReducer });

@@ -1,21 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Header } from '../Header/Header';
 import { Button } from '../../common/Button/Button';
 import { Input } from '../../common/Input/Input';
 
-import { RegistrationProps } from './Registration.types';
-
 import './Registration.scss';
 import '../../App.scss';
+import { UserInfo } from '../../store/user/types';
+import { State } from '../../store/types';
 
 export const Registration = () => {
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const state = useSelector((state: State) => state);
+	const dispatch = useDispatch();
 
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (state.user.isRegistered) {
+			navigate('/login');
+		}
+	}, [navigate, state.user.isRegistered]);
 
 	const REGISTRATION_FIELDS = [
 		{
@@ -55,29 +64,7 @@ export const Registration = () => {
 			id: '',
 			value: (
 				<div className='registrationScreenLoginButton'>
-					<Button
-						text='REGISTRATION'
-						onClickFunction={() => {
-							const data: RegistrationProps = {
-								name: name,
-								email: email,
-								password: password,
-							};
-							fetch('http://localhost:4000/register', {
-								method: 'POST',
-								headers: new Headers({ 'content-type': 'application/json' }),
-								body: JSON.stringify(data),
-							})
-								.then((response) => response.json())
-								.then((responseData) => {
-									if (responseData.successful === true) {
-										navigate('/login');
-									}
-								})
-								.catch((error) => console.log(error));
-							console.log(data);
-						}}
-					/>
+					<Button text='REGISTRATION' onClickFunction={handleRegistration()} />
 				</div>
 			),
 		},
@@ -108,4 +95,15 @@ export const Registration = () => {
 			</div>
 		</div>
 	);
+
+	function handleRegistration(): (params: any) => any {
+		return () => {
+			const payload: UserInfo = {
+				name: name,
+				email: email,
+				password: password,
+			};
+			dispatch({ type: 'REGISTER', payload });
+		};
+	}
 };

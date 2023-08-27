@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Courses } from './components/Courses/Courses';
 import { Header } from './components/Header/Header';
@@ -13,34 +14,35 @@ import { Login } from './components/Login/Login';
 import { Registration } from './components/Registration/Registration';
 import { AppProps } from './App.types';
 import { CreateCourse } from './components/CreateCourse/CreateCourse';
+import { State } from './store/types';
 
 function App() {
-	const [token, setToken] = useState(localStorage.getItem('token'));
-	const [username, setUsername] = useState(localStorage.getItem('username'));
+	const state = useSelector((state: State) => state);
 	const navigate = useNavigate();
-
-	let isTokenPresent = token !== null && token !== undefined;
+	const dispatch = useDispatch();
 
 	return (
 		<div className='app'>
-			{isTokenPresent && username !== null ? (
+			{state.user.isAuth && (
 				<Header
-					username={username}
+					username={state.user.name}
 					buttonText={'LOGOUT'}
 					buttonFunction={() => {
-						localStorage.removeItem('token');
-						localStorage.removeItem('username');
+						dispatch({ type: 'LOGOUT' });
 						navigate('/login');
 					}}
 				/>
-			) : (
-				<div />
 			)}
 			<Routes>
 				<Route path='/courses'>
 					<Route
 						path=''
-						element={<AppComponent isTokenPresent={isTokenPresent} />}
+						element={
+							<AppComponent
+								username={state.user.name}
+								isTokenPresent={state.user.isAuth}
+							/>
+						}
 					/>
 					<Route path=':courseId' element={<CourseInfo />} />
 					<Route path='/courses/add' element={<CreateCourse />} />
