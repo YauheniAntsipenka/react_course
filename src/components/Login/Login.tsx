@@ -1,21 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Header } from '../Header/Header';
 import { Button } from '../../common/Button/Button';
 import { Input } from '../../common/Input/Input';
 
-import { LoginProps } from './Login.types';
-
 import './Login.scss';
 import '../../App.scss';
+import { UserInfo } from '../../store/user/types';
+import { State } from '../../store/types';
 
 export const Login = () => {
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const state = useSelector((state: State) => state);
+	const dispatch = useDispatch();
 
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (state.user.isAuth) {
+			navigate('/courses');
+		}
+	}, [navigate, state.user.isAuth]);
 
 	const LOGIN_FIELDS = [
 		{
@@ -55,28 +64,7 @@ export const Login = () => {
 			id: '',
 			value: (
 				<div className='loginScreenLoginButton'>
-					<Button
-						text='LOGIN'
-						onClickFunction={() => {
-							const data: LoginProps = {
-								name: name,
-								email: email,
-								password: password,
-							};
-							fetch('http://localhost:4000/login', {
-								method: 'POST',
-								headers: new Headers({ 'content-type': 'application/json' }),
-								body: JSON.stringify(data),
-							})
-								.then((response) => response.json())
-								.then((responseData) => {
-									localStorage.setItem('token', responseData.result);
-									localStorage.setItem('username', responseData.user.name);
-									navigate('/courses', { replace: true });
-								})
-								.catch((error) => console.log(error));
-						}}
-					/>
+					<Button text='LOGIN' onClickFunction={handleLoginButton()} />
 				</div>
 			),
 		},
@@ -108,4 +96,15 @@ export const Login = () => {
 			</div>
 		</div>
 	);
+
+	function handleLoginButton(): () => any {
+		return () => {
+			const payload: UserInfo = {
+				name: name,
+				email: email,
+				password: password,
+			};
+			dispatch({ type: 'LOGIN', payload });
+		};
+	}
 };
