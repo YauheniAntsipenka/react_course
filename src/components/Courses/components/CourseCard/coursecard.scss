@@ -73,10 +73,26 @@ span {
 }
 
 .buttonsGroup {
-    width: 200px;
-    height: 50px;
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 60px;
 
     margin-top: 10px;
+}
 
-    display: inline-flex;
+.showCourseButton {
+    height: 100%;
+    width: 40%;
+}
+
+.deleteCourseButton {
+    height: 100%;
+    width: 15%;
+}
+
+.editCourseButton {
+    height: 100%;
+    width: 15%;
 }

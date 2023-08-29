@@ -48,12 +48,30 @@ export const CourseCard = ({
 							);
 						})}
 						<div className='buttonsGroup'>
-							<Button
-								text='SHOW COURSE'
-								onClickFunction={() => {
-									navigate('/courses/' + id);
-								}}
-							/>
+							<div className='showCourseButton'>
+								<Button
+									text='SHOW COURSE'
+									onClickFunction={() => {
+										navigate('/courses/' + id);
+									}}
+								/>
+							</div>
+							<div className='deleteCourseButton'>
+								<Button
+									text='&#x1F5D1;'
+									onClickFunction={() => {
+										navigate('/courses/' + id);
+									}}
+								/>
+							</div>
+							<div className='editCourseButton'>
+								<Button
+									text='&#x270E;'
+									onClickFunction={() => {
+										navigate('/courses/' + id);
+									}}
+								/>
+							</div>
 						</div>
 					</div>
 				</div>
