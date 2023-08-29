@@ -1,25 +1,14 @@
-import { CourseType, CoursesActionTypes } from './types';
-
-type AddNewCourseAction = {
-	type: CoursesActionTypes.ADD_COURSE;
-	payload: CourseType;
-};
-
-export const addNewCourseAction = (
-	courseData: CourseType
-): AddNewCourseAction => ({
-	type: CoursesActionTypes.ADD_COURSE,
-	payload: courseData,
-});
+import { CourseCardProps } from '../../components/Courses/components/CourseCard/CourseCard.types';
+import { CoursesActionTypes } from './types';
 
 interface SaveCourses {
-	type: CoursesActionTypes.SAVE_COURSES;
-	payload: CourseType[];
+	type: CoursesActionTypes.SAVE_COURSE;
+	payload: CourseCardProps[];
 }
 
 interface AddCourse {
 	type: CoursesActionTypes.ADD_COURSE;
-	payload: CourseType;
+	payload: CourseCardProps;
 }
 
 interface DeleteCourse {
@@ -27,4 +16,13 @@ interface DeleteCourse {
 	payload: string;
 }
 
-export type CoursesAction = SaveCourses | AddCourse | DeleteCourse;
+interface GetAllCourses {
+	type: CoursesActionTypes.GET_ALL_COURSES;
+	courses: CourseCardProps[];
+}
+
+export type CoursesAction =
+	| SaveCourses
+	| AddCourse
+	| DeleteCourse
+	| GetAllCourses;

@@ -10,7 +10,7 @@ export function getCourses(): CourseCardProps[] {
 			title: course.title,
 			description: course.description,
 			duration: getDuration(course.duration),
-			creationDate: new Date(course.creationDate),
+			creationDate: course.creationDate,
 			authors: getAuthors(course.authors),
 		};
 	});

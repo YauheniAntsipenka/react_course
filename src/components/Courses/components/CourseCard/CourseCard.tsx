@@ -19,7 +19,7 @@ export const CourseCard = ({
 	const ADDITIONAL_INFO = [
 		{
 			id: 'Authors:',
-			value: authors,
+			value: authors.join(', '),
 		},
 		{
 			id: 'Duration:',
@@ -27,7 +27,7 @@ export const CourseCard = ({
 		},
 		{
 			id: 'Created:',
-			value: creationDate.toLocaleDateString('ru-RU'),
+			value: new Date(creationDate).toLocaleDateString('ru-RU'),
 		},
 	];
 	return (
