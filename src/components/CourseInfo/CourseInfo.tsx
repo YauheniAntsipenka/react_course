@@ -1,13 +1,17 @@
 import React from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import { Button } from '../../common/Button/Button';
 
-import { CourseInfoProps } from './CourseInfo.types';
+import './Courseinfo.scss';
+import { getCourses } from '../../helpers/getCourses';
+import { getCourseToShow } from '../../helpers/getCourseToShow';
 
-import './courseinfo.scss';
+export const CourseInfo = () => {
+	const { courseId } = useParams();
+	const navigate = useNavigate();
 
-export const CourseInfo: React.FC<CourseInfoProps> = (props) => {
-	const courseToShow = props.courseCard;
+	const courseToShow = getCourseToShow(getCourses(), courseId);
 
 	const ADDITIONAL_INFO = [
 		{
@@ -31,9 +35,7 @@ export const CourseInfo: React.FC<CourseInfoProps> = (props) => {
 	return (
 		<div className='courseInfoBody'>
 			<div className='courseInfoGeneral'>
-				<div className='courseInfoGeneralTitle'>
-					<h2>{courseToShow.title}</h2>
-				</div>
+				<h2 className='courseInfoGeneralTitle'>{courseToShow.title}</h2>
 				<div className='courseInfoNote'>
 					<div className='courseInfoCard'>
 						<h3>Description:</h3>
@@ -57,7 +59,7 @@ export const CourseInfo: React.FC<CourseInfoProps> = (props) => {
 					<Button
 						text='BACK'
 						onClickFunction={() => {
-							props.changeState('start', '');
+							navigate('/courses');
 						}}
 					/>
 				</div>

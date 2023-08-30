@@ -18,6 +18,17 @@
     margin-left: 2%;
 }
 
+.courseInfoInfoGeneralGroup {
+    width: 40%;
+    margin-left: 2%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2%;
+}
+
 .courseInfo {
     display: inline-flex;
     align-items: flex-start;
@@ -41,12 +52,7 @@ span {
 }
 
 .additionalInfoGroup {
-    height: 90%;
-    width: 40%;
-    margin-left: 6%;
-
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: flex-start;
 }
@@ -61,30 +67,15 @@ span {
     align-items: flex-start;
 }
 
-.authorsGroup {
-    height: 25px;
-    display: inline-flex;
-    align-items: flex-start;
-}
-
-.durationGroup {
-    height: 25px;
-    display: inline-flex;
-    align-items: flex-start;
-}
-
-.creationDateGroup {
-    height: 25px;
-    display: inline-flex;
-    align-items: flex-start;
-}
-
 .categoryName {
-    font-weight:bold;
+    font-weight: bold;
 }
 
 .buttonsGroup {
-    margin-top: 2%;
+    width: 200px;
+    height: 50px;
+
+    margin-top: 10px;
 
     display: inline-flex;
 }

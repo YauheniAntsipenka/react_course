@@ -1,56 +1,70 @@
 import React, { useState } from 'react';
-
-import { mockedCoursesList } from './constants';
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 
 import { Courses } from './components/Courses/Courses';
-import { CourseInfo } from './components/CourseInfo/CourseInfo';
 import { Header } from './components/Header/Header';
 import { CourseCardProps } from './components/Courses/components/CourseCard/CourseCard.types';
-import { getDuration } from './helpers/getCourseDuration';
-import { getAuthors } from './helpers/getAuthorsNames';
 
-import './app.scss';
+import './App.scss';
 import { EmptyCourseList } from './components/Courses/components/EmptyCourseList/EmptyCourseList';
+import { getCourses } from './helpers/getCourses';
+import { CourseInfo } from './components/CourseInfo/CourseInfo';
+import { Login } from './components/Login/Login';
+import { Registration } from './components/Registration/Registration';
+import { AppProps } from './App.types';
+import { CreateCourse } from './components/CreateCourse/CreateCourse';
 
 function App() {
-	const [activeView, setActiveView] = useState('start');
-	const [courseIdToShow, setCourseIdToShow] = useState('');
+	const [token, setToken] = useState(localStorage.getItem('token'));
+	const [username, setUsername] = useState(localStorage.getItem('username'));
+	const navigate = useNavigate();
 
-	console.log(activeView);
-	console.log(courseIdToShow);
+	let isTokenPresent = token !== null && token !== undefined;
 
-	function changeState(activeView: string, courseIdToShow: string) {
-		setActiveView(activeView);
-		setCourseIdToShow(courseIdToShow);
-	}
-
-	const courses: CourseCardProps[] = mockedCoursesList.map((course) => {
-		return {
-			id: course.id,
-			title: course.title,
-			description: course.description,
-			duration: getDuration(course.duration),
-			creationDate: new Date(course.creationDate),
-			authors: getAuthors(course.authors),
-			changeState: changeState,
-		};
-	});
-	let courseToShow = courses.find((course) => course.id === courseIdToShow);
-	if (courseToShow === undefined) {
-		courseToShow = {} as CourseCardProps;
-	}
 	return (
 		<div className='app'>
-			<Header username='Harry Potter' />
-			{activeView === 'start' && (
-				<Courses changeState={changeState} courses={courses} />
+			{isTokenPresent && username !== null ? (
+				<Header
+					username={username}
+					buttonText={'LOGOUT'}
+					buttonFunction={() => {
+						localStorage.removeItem('token');
+						localStorage.removeItem('username');
+						navigate('/login');
+					}}
+				/>
+			) : (
+				<div />
 			)}
-			{activeView === 'showCourse' && courses?.length && (
-				<CourseInfo changeState={changeState} courseCard={courseToShow} />
-			)}
-			{activeView === 'showCourse' && !courses?.length && <EmptyCourseList />}
+			<Routes>
+				<Route path='/courses'>
+					<Route
+						path=''
+						element={<AppComponent isTokenPresent={isTokenPresent} />}
+					/>
+					<Route path=':courseId' element={<CourseInfo />} />
+					<Route path='/courses/add' element={<CreateCourse />} />
+				</Route>
+				<Route path='/login' element={<Login />} />
+				<Route path='/register' element={<Registration />} />
+				<Route path='/' element={<Navigate to='/login' replace={true} />} />
+				<Route
+					path='/react_course'
+					element={<Navigate to='/login' replace={true} />}
+				/>
+			</Routes>
 		</div>
 	);
 }
 
 export default App;
+
+const AppComponent: React.FC<AppProps> = (props) => {
+	const courses: CourseCardProps[] = getCourses();
+	return (
+		<>
+			{props.isTokenPresent && <Courses courses={courses} />}
+			{props.isTokenPresent && !courses?.length && <EmptyCourseList />}
+		</>
+	);
+};

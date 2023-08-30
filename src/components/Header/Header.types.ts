@@ -1,3 +1,5 @@
 export interface HeaderProps {
-	username: string;
+	username?: string;
+	buttonText?: string;
+	buttonFunction?: () => void;
 }
