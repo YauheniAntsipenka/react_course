@@ -1,4 +1,3 @@
-import { addCourse } from '../../services';
 import { CoursesAction } from './actions';
 import { CourseType, CoursesActionTypes } from './types';
 

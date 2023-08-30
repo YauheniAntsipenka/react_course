@@ -5,8 +5,6 @@ import { Button } from '../../common/Button/Button';
 import { Input } from '../../common/Input/Input';
 
 import './CreateCourse.scss';
-import { AuthorItemProps } from './components/AuthorItem/AuthorItem.types';
-import { CourseProps } from './CreateCourse.types';
 import { getDuration } from '../../helpers/getCourseDuration';
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch, useSelector } from 'react-redux';
