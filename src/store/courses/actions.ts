@@ -1,14 +1,13 @@
-import { CourseCardProps } from '../../components/Courses/components/CourseCard/CourseCard.types';
-import { CoursesActionTypes } from './types';
+import { CourseType, CoursesActionTypes } from './types';
 
 interface SaveCourses {
 	type: CoursesActionTypes.SAVE_COURSE;
-	payload: CourseCardProps[];
+	payload: CourseType;
 }
 
 interface AddCourse {
 	type: CoursesActionTypes.ADD_COURSE;
-	payload: CourseCardProps;
+	course: CourseType;
 }
 
 interface DeleteCourse {
@@ -18,7 +17,7 @@ interface DeleteCourse {
 
 interface GetAllCourses {
 	type: CoursesActionTypes.GET_ALL_COURSES;
-	courses: CourseCardProps[];
+	courses: CourseType[];
 }
 
 export type CoursesAction =

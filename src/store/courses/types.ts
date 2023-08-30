@@ -4,3 +4,13 @@ export const enum CoursesActionTypes {
 	DELETE_COURSE = 'DELETE_COURSE',
 	GET_ALL_COURSES = 'GET_ALL_COURSES',
 }
+
+export type CourseType = {
+	isAdded: boolean;
+	id: string;
+	title: string;
+	duration: number;
+	creationDate: string;
+	authors: string[];
+	description: string;
+};

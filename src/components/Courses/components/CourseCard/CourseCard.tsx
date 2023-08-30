@@ -6,6 +6,8 @@ import { Button } from '../../../../common/Button/Button';
 import { CourseCardProps } from './CourseCard.types';
 
 import './Coursecard.scss';
+import { deleteCourse } from '../../../../services';
+import { useDispatch } from 'react-redux';
 
 export const CourseCard = ({
 	id,
@@ -16,6 +18,7 @@ export const CourseCard = ({
 	description,
 }: CourseCardProps) => {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	const ADDITIONAL_INFO = [
 		{
 			id: 'Authors:',
@@ -60,7 +63,13 @@ export const CourseCard = ({
 								<Button
 									text='&#x1F5D1;'
 									onClickFunction={() => {
-										navigate('/courses/' + id);
+										deleteCourse(id).then((isDeleted) => {
+											if (isDeleted) {
+												console.log('isDeleted: ', isDeleted);
+												dispatch({ type: 'DELETE_COURSE' });
+												navigate(0);
+											}
+										});
 									}}
 								/>
 							</div>

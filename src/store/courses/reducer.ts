@@ -1,8 +1,8 @@
-import { CourseCardProps } from '../../components/Courses/components/CourseCard/CourseCard.types';
+import { addCourse } from '../../services';
 import { CoursesAction } from './actions';
-import { CoursesActionTypes } from './types';
+import { CourseType, CoursesActionTypes } from './types';
 
-export let initCoursesState = [] as CourseCardProps[];
+export let initCoursesState = [] as CourseType[];
 
 export function coursesReducer(
 	state = initCoursesState,
@@ -13,11 +13,18 @@ export function coursesReducer(
 			return action.payload;
 
 		case CoursesActionTypes.ADD_COURSE:
-			return [...state, action.payload];
+			if (action.course === undefined) {
+				console.log('action1: ', action);
+				return [{ isAdded: false }] as CourseType[];
+			}
+			console.log('action2: ', action);
+			return [action.course];
+
+		case CoursesActionTypes.DELETE_COURSE:
+			return [...state];
 
 		case CoursesActionTypes.GET_ALL_COURSES:
-			state = action.courses;
-			return [...state];
+			return action.courses;
 
 		default:
 			return state;

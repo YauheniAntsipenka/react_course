@@ -1,6 +1,8 @@
 import { LoginProps } from './components/Login/Login.types';
 import { RegistrationProps } from './components/Registration/Registration.types';
 import { CourseCardProps } from './components/Courses/components/CourseCard/CourseCard.types';
+import { CourseType } from './store/courses/types';
+import { AuthorType } from './store/authors/types';
 
 export function login(name: string, email: string, password: string) {
 	const data: LoginProps = {
@@ -70,4 +72,69 @@ export async function fetchCourses(): Promise<CourseCardProps[]> {
 		return result;
 	}
 	return [] as CourseCardProps[];
+}
+
+export async function addCourse(data: CourseType): Promise<boolean> {
+	const requestHeaders: HeadersInit = new Headers();
+	requestHeaders.set('Content-Type', 'application/json');
+	requestHeaders.set('Authorization', localStorage.getItem('token')!);
+	const response = await fetch('http://localhost:4000/courses/add', {
+		method: 'POST',
+		headers: requestHeaders,
+		body: JSON.stringify(data),
+	});
+
+	type JSONResponse = {
+		successful: boolean;
+	};
+
+	const { successful }: JSONResponse = await response.json();
+
+	if (successful === true) {
+		return true;
+	}
+	return false;
+}
+
+export async function deleteCourse(courseId: string): Promise<boolean> {
+	const requestHeaders: HeadersInit = new Headers();
+	requestHeaders.set('Content-Type', 'application/json');
+	requestHeaders.set('Authorization', localStorage.getItem('token')!);
+	const response = await fetch('http://localhost:4000/courses/' + courseId, {
+		method: 'DELETE',
+		headers: requestHeaders,
+	});
+
+	type JSONResponse = {
+		successful: boolean;
+	};
+
+	const { successful }: JSONResponse = await response.json();
+
+	if (successful === true) {
+		return true;
+	}
+	return false;
+}
+
+export async function fetchAuthors(): Promise<AuthorType[]> {
+	const requestHeaders: HeadersInit = new Headers();
+	requestHeaders.set('Content-Type', 'application/json');
+	requestHeaders.set('Authorization', localStorage.getItem('token')!);
+	const response = await fetch('http://localhost:4000/authors/all', {
+		method: 'GET',
+		headers: requestHeaders,
+	});
+
+	type JSONResponse = {
+		successful: boolean;
+		result?: AuthorType[];
+	};
+
+	const { successful, result }: JSONResponse = await response.json();
+
+	if (successful === true && result?.length) {
+		return result;
+	}
+	return [] as AuthorType[];
 }

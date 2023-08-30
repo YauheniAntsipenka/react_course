@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Button } from '../../common/Button/Button';
@@ -9,6 +9,11 @@ import { AuthorItemProps } from './components/AuthorItem/AuthorItem.types';
 import { CourseProps } from './CreateCourse.types';
 import { getDuration } from '../../helpers/getCourseDuration';
 import { v4 as uuidv4 } from 'uuid';
+import { useDispatch, useSelector } from 'react-redux';
+import { State } from '../../store/types';
+import { CourseType } from '../../store/courses/types';
+import { addCourse, fetchAuthors, fetchCourses } from '../../services';
+import { AuthorType } from '../../store/authors/types';
 
 export const CreateCourse = () => {
 	const navigate = useNavigate();
@@ -17,7 +22,20 @@ export const CreateCourse = () => {
 	const [description, setDescription] = useState('');
 	const [duration, setDuration] = useState(0);
 	const [durationInHours, setDurationInHours] = useState('00:00 hours');
-	const [authors, setAuthors] = useState([{ name: '', id: '' }]);
+	const [authors, setAuthors] = useState([] as AuthorType[]);
+	const dispatch = useDispatch();
+	const state = useSelector((state: State) => state);
+
+	console.log(state);
+
+	useEffect(() => {
+		if (state.courses[0].isAdded) {
+			fetchCourses().then((courses) => {
+				dispatch({ type: 'GET_ALL_COURSES', courses });
+			});
+			navigate('/courses');
+		}
+	}, [dispatch, navigate, state.courses]);
 
 	const COURSE_INFO = [
 		{
@@ -86,7 +104,7 @@ export const CreateCourse = () => {
 								<Button
 									text='CREATE AUTHOR'
 									onClickFunction={() => {
-										let author: AuthorItemProps = {
+										let author: AuthorType = {
 											name: authorName,
 											id: uuidv4(),
 										};
@@ -142,36 +160,40 @@ export const CreateCourse = () => {
 					<div className='createCourseButton'>
 						<Button
 							text='CREATE COURSE'
-							onClickFunction={() => {
-								const data: CourseProps = {
-									title: title,
-									description: description,
-									duration: duration,
-									authors: authors,
-								};
-								const requestHeaders: HeadersInit = new Headers();
-								requestHeaders.set('Content-Type', 'application/json');
-								const token = localStorage.getItem('token');
-								requestHeaders.set(
-									'Authentication',
-									token !== null ? token : ''
-								);
-								fetch('http://localhost:4000/courses/add', {
-									method: 'POST',
-									headers: requestHeaders,
-									body: JSON.stringify(data),
-								})
-									.then((response) => response.json())
-									.then((responseData) => {
-										console.log(responseData);
-										navigate('/courses', { replace: true });
-									})
-									.catch((error) => console.log(error));
-							}}
+							onClickFunction={handleButtonClickFunction()}
 						/>
 					</div>
 				</div>
 			</div>
 		</div>
 	);
+
+	function handleButtonClickFunction(): (params: any) => any {
+		return () => {
+			let authorIds = [] as string[];
+			fetchAuthors().then((presentAuthors) => {
+				const commonAuthors = presentAuthors.filter((o) =>
+					authors.some(({ name }) => o.name === name)
+				);
+				console.log('commonAuthors: ', commonAuthors);
+				commonAuthors.map((resultAuthor) => authorIds.push(resultAuthor.id));
+			});
+			const course: CourseType = {
+				isAdded: false,
+				id: uuidv4(),
+				creationDate: String(new Date()),
+				title: title,
+				description: description,
+				duration: Number(duration),
+				authors: authorIds,
+			};
+			addCourse(course).then((isAdded) => {
+				if (isAdded) {
+					console.log('isAdded: ', isAdded);
+					course.isAdded = true;
+					dispatch({ type: 'ADD_COURSE', course });
+				}
+			});
+		};
+	}
 };

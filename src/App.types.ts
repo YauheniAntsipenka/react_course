@@ -1,7 +1,7 @@
-import { CourseCardProps } from './components/Courses/components/CourseCard/CourseCard.types';
+import { CourseType } from './store/courses/types';
 
 export interface AppProps {
 	isTokenPresent: boolean;
 	username: string;
-	courses: CourseCardProps[];
+	courses: CourseType[];
 }
