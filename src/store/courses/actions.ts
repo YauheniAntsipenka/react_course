@@ -7,7 +7,7 @@ interface SaveCourses {
 
 interface AddCourse {
 	type: CoursesActionTypes.ADD_COURSE;
-	course: CourseType;
+	courses: CourseType[];
 }
 
 interface DeleteCourse {

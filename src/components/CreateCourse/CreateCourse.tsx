@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Button } from '../../common/Button/Button';
@@ -7,8 +7,7 @@ import { Input } from '../../common/Input/Input';
 import './CreateCourse.scss';
 import { getDuration } from '../../helpers/getCourseDuration';
 import { v4 as uuidv4 } from 'uuid';
-import { useDispatch, useSelector } from 'react-redux';
-import { State } from '../../store/types';
+import { useDispatch } from 'react-redux';
 import { CourseType } from '../../store/courses/types';
 import { addCourse, fetchAuthors, fetchCourses } from '../../services';
 import { AuthorType } from '../../store/authors/types';
@@ -22,18 +21,6 @@ export const CreateCourse = () => {
 	const [durationInHours, setDurationInHours] = useState('00:00 hours');
 	const [authors, setAuthors] = useState([] as AuthorType[]);
 	const dispatch = useDispatch();
-	const state = useSelector((state: State) => state);
-
-	console.log(state);
-
-	useEffect(() => {
-		if (state.courses[0].isAdded) {
-			fetchCourses().then((courses) => {
-				dispatch({ type: 'GET_ALL_COURSES', courses });
-			});
-			navigate('/courses');
-		}
-	}, [dispatch, navigate, state.courses]);
 
 	const COURSE_INFO = [
 		{
@@ -187,9 +174,10 @@ export const CreateCourse = () => {
 			};
 			addCourse(course).then((isAdded) => {
 				if (isAdded) {
-					console.log('isAdded: ', isAdded);
-					course.isAdded = true;
-					dispatch({ type: 'ADD_COURSE', course });
+					fetchCourses().then((courses) => {
+						dispatch({ type: 'ADD_COURSE', courses });
+						navigate('/courses');
+					});
 				}
 			});
 		};

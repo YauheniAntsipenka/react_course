@@ -7,18 +7,15 @@ import { Button } from '../../common/Button/Button';
 import { CoursesProps } from './Courses.types';
 
 import './Courses.scss';
-import { useDispatch } from 'react-redux';
 
 export const Courses = ({ courses }: CoursesProps) => {
 	const navigate = useNavigate();
-	const dispatch = useDispatch();
 	return (
 		<div className='courses'>
 			<div className='addNewCourseButton justify-end'>
 				<Button
 					text='Add new course'
 					onClickFunction={() => {
-						dispatch({ type: 'ADD_COURSE', undefined });
 						navigate('/courses/add');
 					}}
 				/>

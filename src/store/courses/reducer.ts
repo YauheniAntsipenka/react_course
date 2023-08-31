@@ -12,12 +12,7 @@ export function coursesReducer(
 			return action.payload;
 
 		case CoursesActionTypes.ADD_COURSE:
-			if (action.course === undefined) {
-				console.log('action1: ', action);
-				return [{ isAdded: false }] as CourseType[];
-			}
-			console.log('action2: ', action);
-			return [action.course];
+			return action.courses;
 
 		case CoursesActionTypes.DELETE_COURSE:
 			return action.courses;
