@@ -3,11 +3,10 @@ import { useNavigate } from 'react-router-dom';
 
 import { Button } from '../../../../common/Button/Button';
 
-import { CourseCardProps } from './CourseCard.types';
-
 import './Coursecard.scss';
 import { deleteCourse, fetchCourses } from '../../../../services';
 import { useDispatch } from 'react-redux';
+import { CourseType } from '../../../../store/courses/types';
 
 export const CourseCard = ({
 	id,
@@ -16,7 +15,7 @@ export const CourseCard = ({
 	creationDate,
 	authors,
 	description,
-}: CourseCardProps) => {
+}: CourseType) => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const ADDITIONAL_INFO = [
@@ -30,7 +29,7 @@ export const CourseCard = ({
 		},
 		{
 			id: 'Created:',
-			value: new Date(creationDate).toLocaleDateString('ru-RU'),
+			value: creationDate,
 		},
 	];
 	return (
@@ -63,7 +62,7 @@ export const CourseCard = ({
 								<Button
 									text='&#x1F5D1;'
 									onClickFunction={() => {
-										deleteCourse(id).then((isDeleted) => {
+										deleteCourse(id!).then((isDeleted) => {
 											if (isDeleted) {
 												console.log('isDeleted: ', isDeleted);
 												fetchCourses().then((courses) => {

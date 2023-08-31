@@ -46,7 +46,7 @@ export function register(name: string, email: string, password: string) {
 }
 
 export function getAllCourses() {
-	let courses: CourseCardProps[] = [];
+	let courses: CourseType[] = [];
 	fetchCourses().then((coursesLocal) => {
 		console.log('coursesLocal: ', coursesLocal);
 		courses.concat(coursesLocal);
@@ -55,7 +55,7 @@ export function getAllCourses() {
 	return courses;
 }
 
-export async function fetchCourses(): Promise<CourseCardProps[]> {
+export async function fetchCourses(): Promise<CourseType[]> {
 	const response = await fetch('http://localhost:4000/courses/all', {
 		method: 'GET',
 		headers: new Headers({ 'content-type': 'application/json' }),
@@ -63,7 +63,7 @@ export async function fetchCourses(): Promise<CourseCardProps[]> {
 
 	type JSONResponse = {
 		successful: boolean;
-		result?: CourseCardProps[];
+		result?: CourseType[];
 	};
 
 	const { successful, result }: JSONResponse = await response.json();
@@ -71,7 +71,7 @@ export async function fetchCourses(): Promise<CourseCardProps[]> {
 	if (successful === true && result?.length) {
 		return result;
 	}
-	return [] as CourseCardProps[];
+	return [] as CourseType[];
 }
 
 export async function addCourse(data: CourseType): Promise<boolean> {
@@ -86,9 +86,12 @@ export async function addCourse(data: CourseType): Promise<boolean> {
 
 	type JSONResponse = {
 		successful: boolean;
+		result?: CourseType;
 	};
 
-	const { successful }: JSONResponse = await response.json();
+	const { successful, result }: JSONResponse = await response.json();
+	console.log(data);
+	console.log(result);
 
 	if (successful === true) {
 		return true;

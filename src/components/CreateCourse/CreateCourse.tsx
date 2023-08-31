@@ -192,13 +192,10 @@ export const CreateCourse = () => {
 				const commonAuthors = presentAuthors.filter((o) =>
 					state.authors.some(({ name }) => o.name === name)
 				);
-				console.log('commonAuthors: ', commonAuthors);
 				commonAuthors.map((resultAuthor) => authorIds.push(resultAuthor.id));
 			});
 			const course: CourseType = {
-				isAdded: false,
-				id: uuidv4(),
-				creationDate: String(new Date()),
+				creationDate: String(new Date().toLocaleDateString('ru-RU')),
 				title: title,
 				description: description,
 				duration: Number(duration),

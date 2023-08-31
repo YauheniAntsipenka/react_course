@@ -27,7 +27,7 @@ export const Courses = ({ courses }: CoursesProps) => {
 							key={id}
 							id={id}
 							title={title}
-							duration={String(duration)}
+							duration={duration}
 							creationDate={creationDate}
 							authors={authors}
 							description={description}

@@ -6,8 +6,7 @@ export const enum CoursesActionTypes {
 }
 
 export type CourseType = {
-	isAdded: boolean;
-	id: string;
+	id?: string;
 	title: string;
 	duration: number;
 	creationDate: string;

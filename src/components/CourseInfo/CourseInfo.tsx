@@ -26,7 +26,7 @@ export const CourseInfo = () => {
 		},
 		{
 			id: 'Created:',
-			value: new Date(courseToShow.creationDate).toLocaleDateString('ru-RU'),
+			value: courseToShow.creationDate,
 		},
 		{
 			id: 'Authors:',
