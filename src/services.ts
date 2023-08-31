@@ -138,3 +138,46 @@ export async function fetchAuthors(): Promise<AuthorType[]> {
 	}
 	return [] as AuthorType[];
 }
+
+export async function addAuthor(data: AuthorType): Promise<boolean> {
+	const requestHeaders: HeadersInit = new Headers();
+	requestHeaders.set('Content-Type', 'application/json');
+	requestHeaders.set('Authorization', localStorage.getItem('token')!);
+	const response = await fetch('http://localhost:4000/authors/add', {
+		method: 'POST',
+		headers: requestHeaders,
+		body: JSON.stringify(data),
+	});
+
+	type JSONResponse = {
+		successful: boolean;
+	};
+
+	const { successful }: JSONResponse = await response.json();
+
+	if (successful === true) {
+		return true;
+	}
+	return false;
+}
+
+export async function deleteAuthor(authorId: string): Promise<boolean> {
+	const requestHeaders: HeadersInit = new Headers();
+	requestHeaders.set('Content-Type', 'application/json');
+	requestHeaders.set('Authorization', localStorage.getItem('token')!);
+	const response = await fetch('http://localhost:4000/authors/' + authorId, {
+		method: 'DELETE',
+		headers: requestHeaders,
+	});
+
+	type JSONResponse = {
+		successful: boolean;
+	};
+
+	const { successful }: JSONResponse = await response.json();
+
+	if (successful === true) {
+		return true;
+	}
+	return false;
+}
