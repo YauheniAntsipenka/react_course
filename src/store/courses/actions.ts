@@ -12,7 +12,7 @@ interface AddCourse {
 
 interface DeleteCourse {
 	type: CoursesActionTypes.DELETE_COURSE;
-	payload: string;
+	courses: CourseType[];
 }
 
 interface GetAllCourses {

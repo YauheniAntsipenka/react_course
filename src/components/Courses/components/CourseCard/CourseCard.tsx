@@ -6,7 +6,7 @@ import { Button } from '../../../../common/Button/Button';
 import { CourseCardProps } from './CourseCard.types';
 
 import './Coursecard.scss';
-import { deleteCourse } from '../../../../services';
+import { deleteCourse, fetchCourses } from '../../../../services';
 import { useDispatch } from 'react-redux';
 
 export const CourseCard = ({
@@ -66,8 +66,10 @@ export const CourseCard = ({
 										deleteCourse(id).then((isDeleted) => {
 											if (isDeleted) {
 												console.log('isDeleted: ', isDeleted);
-												dispatch({ type: 'DELETE_COURSE' });
-												navigate(0);
+												fetchCourses().then((courses) => {
+													dispatch({ type: 'DELETE_COURSE', courses });
+												});
+												navigate('/courses');
 											}
 										});
 									}}

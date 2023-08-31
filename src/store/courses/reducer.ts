@@ -20,7 +20,7 @@ export function coursesReducer(
 			return [action.course];
 
 		case CoursesActionTypes.DELETE_COURSE:
-			return [...state];
+			return action.courses;
 
 		case CoursesActionTypes.GET_ALL_COURSES:
 			return action.courses;
