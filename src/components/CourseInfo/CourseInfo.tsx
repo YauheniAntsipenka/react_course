@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 import { Button } from '../../common/Button/Button';
 
-import './Courseinfo.scss';
+import './courseinfo.scss';
 import { getCourseToShow } from '../../helpers/getCourseToShow';
 import { useSelector } from 'react-redux';
 import { State } from '../../store/types';

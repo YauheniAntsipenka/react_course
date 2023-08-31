@@ -6,8 +6,8 @@ import { Header } from '../Header/Header';
 import { Button } from '../../common/Button/Button';
 import { Input } from '../../common/Input/Input';
 
-import './Login.scss';
-import '../../App.scss';
+import './login.scss';
+import '../../app.scss';
 import { UserInfo } from '../../store/user/types';
 import { State } from '../../store/types';
 

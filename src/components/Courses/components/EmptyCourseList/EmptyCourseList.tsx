@@ -2,7 +2,7 @@ import React from 'react';
 
 import { EmptyCourseListProps } from './EmptyCourseList.types';
 
-import './Emptycourselist.scss';
+import './emptycourselist.scss';
 import { Button } from '../../../../common/Button/Button';
 import { useNavigate } from 'react-router-dom';
 

@@ -6,7 +6,7 @@ import { Button } from '../../common/Button/Button';
 
 import { CoursesProps } from './Courses.types';
 
-import './Courses.scss';
+import './courses.scss';
 
 export const Courses = ({ courses }: CoursesProps) => {
 	const navigate = useNavigate();
