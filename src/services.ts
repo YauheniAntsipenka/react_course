@@ -1,6 +1,5 @@
 import { LoginProps } from './components/Login/Login.types';
 import { RegistrationProps } from './components/Registration/Registration.types';
-import { CourseCardProps } from './components/Courses/components/CourseCard/CourseCard.types';
 import { CourseType } from './store/courses/types';
 import { AuthorType } from './store/authors/types';
 
