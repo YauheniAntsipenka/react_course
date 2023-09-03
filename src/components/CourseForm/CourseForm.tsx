@@ -18,6 +18,8 @@ import {
 } from '../../services';
 import { AuthorType } from '../../store/authors/types';
 import { State } from '../../store/types';
+import store from '../../store';
+import { getAllAuthors } from '../../store/authors/thunk';
 
 export const CourseForm = () => {
 	const navigate = useNavigate();
@@ -30,10 +32,8 @@ export const CourseForm = () => {
 	const state = useSelector((state: State) => state);
 
 	useEffect(() => {
-		fetchAuthors().then((authors) => {
-			dispatch({ type: 'GET_ALL_AUTHORS', authors });
-		});
-	}, [dispatch]);
+		store.dispatch(getAllAuthors());
+	}, []);
 
 	const COURSE_INFO = [
 		{
