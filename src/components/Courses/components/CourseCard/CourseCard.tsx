@@ -65,7 +65,6 @@ export const CourseCard = ({
 									onClickFunction={() => {
 										deleteCourse(id!).then((isDeleted) => {
 											if (isDeleted) {
-												console.log('isDeleted: ', isDeleted);
 												fetchCourses().then((courses) => {
 													dispatch({ type: 'DELETE_COURSE', courses });
 												});

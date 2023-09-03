@@ -130,7 +130,6 @@ export const CourseForm = () => {
 											onClickFunction={() => {
 												deleteAuthor(id).then((isDeleted) => {
 													if (isDeleted) {
-														console.log('isDeleted: ', isDeleted);
 														fetchAuthors().then((authors) => {
 															dispatch({ type: 'DELETE_AUTHOR', authors });
 														});

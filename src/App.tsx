@@ -18,9 +18,7 @@ import { getAllCourses } from './store/courses/thunk';
 
 function App() {
 	const userState = useSelector((state: State) => state.user);
-	console.log(userState);
 	const coursesState = useSelector((state: State) => state.courses);
-	console.log(coursesState);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 

@@ -46,7 +46,7 @@ export function register(name: string, email: string, password: string) {
 		body: JSON.stringify(data),
 	})
 		.then((response) => response.json())
-		.catch((error) => console.log(error));
+		.catch((error) => console.error(error));
 }
 
 export async function fetchCourses(): Promise<CourseType[]> {
