@@ -1,5 +1,4 @@
 import { CoursesAction } from './actions';
-import { fetchAllCourses } from './thunk';
 import { CourseType, CoursesActionTypes } from './types';
 
 export let initCoursesState = [] as CourseType[];

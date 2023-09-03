@@ -49,14 +49,6 @@ export function register(name: string, email: string, password: string) {
 		.catch((error) => console.log(error));
 }
 
-export function getAllCourses() {
-	let courses: CourseType[] = [];
-	fetchCourses().then((coursesLocal) => {
-		courses.concat(coursesLocal);
-	});
-	return courses;
-}
-
 export async function fetchCourses(): Promise<CourseType[]> {
 	const response = await fetch('http://localhost:4000/courses/all', {
 		method: 'GET',

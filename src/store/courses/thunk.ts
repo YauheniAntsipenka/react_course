@@ -1,14 +1,14 @@
 import { Dispatch } from 'react';
-import { getAllCourses } from '../../services';
+import { fetchCourses } from '../../services';
 import { AnyAction } from '@reduxjs/toolkit';
 
-export const fetchAllCourses = () => {
+export const getAllCourses = () => {
 	return function (dispatch: Dispatch<AnyAction>) {
-		const coursesFromServer = getAllCourses();
-		console.log(coursesFromServer);
-		dispatch({
-			type: 'GET_ALL_COURSES',
-			courses: coursesFromServer,
+		fetchCourses().then((courses) => {
+			dispatch({
+				type: 'GET_ALL_COURSES',
+				courses: courses,
+			});
 		});
 	};
 };

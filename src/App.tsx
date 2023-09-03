@@ -14,7 +14,7 @@ import { AppProps } from './App.types';
 import { CourseForm } from './components/CourseForm/CourseForm';
 import { State } from './store/types';
 import store from './store';
-import { fetchAllCourses } from './store/courses/thunk';
+import { getAllCourses } from './store/courses/thunk';
 
 function App() {
 	const state = useSelector((state: State) => state);
@@ -22,8 +22,8 @@ function App() {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		store.dispatch(fetchAllCourses());
-	}, [dispatch]);
+		store.dispatch(getAllCourses());
+	}, []);
 
 	return (
 		<div className='app'>
