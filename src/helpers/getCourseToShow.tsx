@@ -1,12 +1,12 @@
-import { CourseCardProps } from '../components/Courses/components/CourseCard/CourseCard.types';
+import { CourseType } from '../store/courses/types';
 
 export function getCourseToShow(
-	courses: CourseCardProps[],
+	courses: CourseType[],
 	courseIdToShow: string | undefined
 ) {
 	let courseToShow = courses.find((course) => course.id === courseIdToShow);
 	if (courseToShow === undefined) {
-		return (courseToShow = {} as CourseCardProps);
+		return (courseToShow = {} as CourseType);
 	}
 	return courseToShow;
 }

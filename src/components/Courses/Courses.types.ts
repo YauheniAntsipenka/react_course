@@ -1,5 +1,5 @@
-import { CourseCardProps } from './components/CourseCard/CourseCard.types';
+import { CourseType } from '../../store/courses/types';
 
 export interface CoursesProps {
-	courses: CourseCardProps[];
+	courses: CourseType[];
 }

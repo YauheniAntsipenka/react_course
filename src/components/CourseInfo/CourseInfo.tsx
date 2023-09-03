@@ -3,15 +3,18 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 import { Button } from '../../common/Button/Button';
 
-import './Courseinfo.scss';
-import { getCourses } from '../../helpers/getCourses';
+import './CourseInfo.scss';
 import { getCourseToShow } from '../../helpers/getCourseToShow';
+import { useSelector } from 'react-redux';
+import { State } from '../../store/types';
+import { getDuration } from '../../helpers/getCourseDuration';
 
 export const CourseInfo = () => {
+	const state = useSelector((state: State) => state);
 	const { courseId } = useParams();
 	const navigate = useNavigate();
 
-	const courseToShow = getCourseToShow(getCourses(), courseId);
+	const courseToShow = getCourseToShow(state.courses, courseId);
 
 	const ADDITIONAL_INFO = [
 		{
@@ -20,15 +23,15 @@ export const CourseInfo = () => {
 		},
 		{
 			id: 'Duration:',
-			value: courseToShow.duration,
+			value: getDuration(courseToShow.duration),
 		},
 		{
 			id: 'Created:',
-			value: courseToShow.creationDate.toLocaleDateString('ru-RU'),
+			value: courseToShow.creationDate,
 		},
 		{
 			id: 'Authors:',
-			value: courseToShow.authors,
+			value: courseToShow.authors.join(', '),
 		},
 	];
 

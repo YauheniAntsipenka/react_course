@@ -15,7 +15,9 @@ export const Courses = ({ courses }: CoursesProps) => {
 			<div className='addNewCourseButton justify-end'>
 				<Button
 					text='Add new course'
-					onClickFunction={() => navigate('/courses/add')}
+					onClickFunction={() => {
+						navigate('/courses/add');
+					}}
 				/>
 			</div>
 			<ul>

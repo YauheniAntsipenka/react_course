@@ -3,9 +3,11 @@ import { useNavigate } from 'react-router-dom';
 
 import { Button } from '../../../../common/Button/Button';
 
-import { CourseCardProps } from './CourseCard.types';
-
-import './Coursecard.scss';
+import './CourseCard.scss';
+import { deleteCourse, fetchCourses } from '../../../../services';
+import { useDispatch } from 'react-redux';
+import { CourseType } from '../../../../store/courses/types';
+import { getDuration } from '../../../../helpers/getCourseDuration';
 
 export const CourseCard = ({
 	id,
@@ -14,20 +16,21 @@ export const CourseCard = ({
 	creationDate,
 	authors,
 	description,
-}: CourseCardProps) => {
+}: CourseType) => {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	const ADDITIONAL_INFO = [
 		{
 			id: 'Authors:',
-			value: authors,
+			value: authors.join(', '),
 		},
 		{
 			id: 'Duration:',
-			value: duration,
+			value: getDuration(duration),
 		},
 		{
 			id: 'Created:',
-			value: creationDate.toLocaleDateString('ru-RU'),
+			value: creationDate,
 		},
 	];
 	return (
@@ -48,12 +51,38 @@ export const CourseCard = ({
 							);
 						})}
 						<div className='buttonsGroup'>
-							<Button
-								text='SHOW COURSE'
-								onClickFunction={() => {
-									navigate('/courses/' + id);
-								}}
-							/>
+							<div className='showCourseButton'>
+								<Button
+									text='SHOW COURSE'
+									onClickFunction={() => {
+										navigate('/courses/' + id);
+									}}
+								/>
+							</div>
+							<div className='deleteCourseButton'>
+								<Button
+									text='&#x1F5D1;'
+									onClickFunction={() => {
+										deleteCourse(id!).then((isDeleted) => {
+											if (isDeleted) {
+												console.log('isDeleted: ', isDeleted);
+												fetchCourses().then((courses) => {
+													dispatch({ type: 'DELETE_COURSE', courses });
+												});
+												navigate('/courses');
+											}
+										});
+									}}
+								/>
+							</div>
+							<div className='editCourseButton'>
+								<Button
+									text='&#x270E;'
+									onClickFunction={() => {
+										navigate('/courses/' + id);
+									}}
+								/>
+							</div>
 						</div>
 					</div>
 				</div>

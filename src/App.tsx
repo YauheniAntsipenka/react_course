@@ -1,46 +1,54 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Courses } from './components/Courses/Courses';
 import { Header } from './components/Header/Header';
-import { CourseCardProps } from './components/Courses/components/CourseCard/CourseCard.types';
 
 import './App.scss';
 import { EmptyCourseList } from './components/Courses/components/EmptyCourseList/EmptyCourseList';
-import { getCourses } from './helpers/getCourses';
 import { CourseInfo } from './components/CourseInfo/CourseInfo';
 import { Login } from './components/Login/Login';
 import { Registration } from './components/Registration/Registration';
 import { AppProps } from './App.types';
 import { CreateCourse } from './components/CreateCourse/CreateCourse';
+import { State } from './store/types';
+import { fetchCourses } from './services';
 
 function App() {
-	const [token, setToken] = useState(localStorage.getItem('token'));
-	const [username, setUsername] = useState(localStorage.getItem('username'));
+	const state = useSelector((state: State) => state);
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
-	let isTokenPresent = token !== null && token !== undefined;
+	useEffect(() => {
+		fetchCourses().then((courses) => {
+			dispatch({ type: 'GET_ALL_COURSES', courses });
+		});
+	}, [dispatch]);
 
 	return (
 		<div className='app'>
-			{isTokenPresent && username !== null ? (
+			{state.user.isAuth && (
 				<Header
-					username={username}
+					username={state.user.name}
 					buttonText={'LOGOUT'}
 					buttonFunction={() => {
-						localStorage.removeItem('token');
-						localStorage.removeItem('username');
+						dispatch({ type: 'LOGOUT' });
 						navigate('/login');
 					}}
 				/>
-			) : (
-				<div />
 			)}
 			<Routes>
 				<Route path='/courses'>
 					<Route
 						path=''
-						element={<AppComponent isTokenPresent={isTokenPresent} />}
+						element={
+							<AppComponent
+								courses={state.courses}
+								username={state.user.name}
+								isTokenPresent={state.user.isAuth}
+							/>
+						}
 					/>
 					<Route path=':courseId' element={<CourseInfo />} />
 					<Route path='/courses/add' element={<CreateCourse />} />
@@ -60,11 +68,10 @@ function App() {
 export default App;
 
 const AppComponent: React.FC<AppProps> = (props) => {
-	const courses: CourseCardProps[] = getCourses();
 	return (
 		<>
-			{props.isTokenPresent && <Courses courses={courses} />}
-			{props.isTokenPresent && !courses?.length && <EmptyCourseList />}
+			{props.isTokenPresent && <Courses courses={props.courses} />}
+			{props.isTokenPresent && !props.courses?.length && <EmptyCourseList />}
 		</>
 	);
 };
