@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { Button } from '../../../../common/Button/Button';
 
-import './coursecard.scss';
+import './CourseCard.scss';
 import { deleteCourse, fetchCourses } from '../../../../services';
 import { useDispatch } from 'react-redux';
 import { CourseType } from '../../../../store/courses/types';

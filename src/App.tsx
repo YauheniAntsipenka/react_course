@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Courses } from './components/Courses/Courses';
 import { Header } from './components/Header/Header';
 
-import './app.scss';
+import './App.scss';
 import { EmptyCourseList } from './components/Courses/components/EmptyCourseList/EmptyCourseList';
 import { CourseInfo } from './components/CourseInfo/CourseInfo';
 import { Login } from './components/Login/Login';

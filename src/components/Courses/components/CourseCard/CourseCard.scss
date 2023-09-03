@@ -1,0 +1,98 @@
+.card {
+    width: 80%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    align-content: center;
+
+    background: #FFFFFF;
+    
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 10px 0 0 -5px rgba(0, 0, 0, 0.8) inset, 4px 4px 3px rgba(0, 0, 0, 0.2), 0 -8px 5px -5px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+
+.title {
+    margin-left: 2%;
+}
+
+.courseInfoInfoGeneralGroup {
+    width: 40%;
+    margin-left: 2%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2%;
+}
+
+.courseInfo {
+    width: 95%;
+    display: inline-flex;
+    align-items: flex-start;
+    margin-left: 2%;
+    margin-bottom: 3%;
+}
+
+.description {
+    height: 90%;
+    width: 60%;
+    margin-left: 0;
+    
+    display: flex;
+    align-items: flex-start;
+    text-align: left;
+}
+
+span {
+    display: flex;
+    align-items: center;
+}
+
+.additionalInfoGroup {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.infoGroup {
+    width: 100%;
+    height: 70%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.categoryName {
+    font-weight: bold;
+}
+
+.buttonsGroup {
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 60px;
+
+    margin-top: 10px;
+}
+
+.showCourseButton {
+    height: 100%;
+    width: 40%;
+}
+
+.deleteCourseButton {
+    height: 100%;
+    width: 15%;
+}
+
+.editCourseButton {
+    height: 100%;
+    width: 15%;
+}
