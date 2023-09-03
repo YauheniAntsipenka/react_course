@@ -11,3 +11,14 @@ export type SingleItemJSONResponse<T> = {
 export type IsSuccessfullJSONResponse = {
 	successful: boolean;
 };
+
+type UserLoginInfo = {
+	email: string;
+	name: string;
+};
+
+export type UserRelatedJSONResponse = {
+	successful: boolean;
+	result?: string;
+	user: UserLoginInfo;
+};

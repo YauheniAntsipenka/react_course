@@ -6,27 +6,35 @@ import {
 	IsSuccessfullJSONResponse,
 	ObjectsJSONResponse,
 	SingleItemJSONResponse,
+	UserRelatedJSONResponse,
 } from './services.types';
+import { UserInfoWithRole } from './store/user/types';
 
-export function login(name: string, email: string, password: string) {
+export async function login(
+	name: string,
+	email: string,
+	password: string
+): Promise<boolean> {
 	const data: LoginProps = {
 		name: name,
 		email: email,
 		password: password,
 	};
-	fetch('http://localhost:4000/login', {
+	const response = await fetch('http://localhost:4000/login', {
 		method: 'POST',
 		headers: new Headers({ 'content-type': 'application/json' }),
 		body: JSON.stringify(data),
-	})
-		.then((response) => response.json())
-		.then((responseData) => {
-			localStorage.setItem('token', responseData.result);
-			localStorage.setItem('username', responseData.user.name);
-		})
-		.catch((error) => {
-			console.error(error);
-		});
+	});
+
+	const { successful, result, user }: UserRelatedJSONResponse =
+		await response.json();
+
+	if (successful) {
+		localStorage.setItem('token', result!);
+		localStorage.setItem('username', user.name);
+		return true;
+	}
+	return false;
 }
 
 export function logout() {
@@ -133,4 +141,21 @@ export async function deleteAuthor(authorId: string): Promise<boolean> {
 	const { successful }: IsSuccessfullJSONResponse = await response.json();
 
 	return successful;
+}
+
+export async function fetchCurrentUserInfo(): Promise<UserInfoWithRole> {
+	const requestHeaders: HeadersInit = new Headers();
+	console.log(localStorage.getItem('token')!);
+	const tokenValue = localStorage.getItem('token')!;
+	requestHeaders.set('Authorization', tokenValue);
+	const response = await fetch('http://localhost:4000/users/me', {
+		method: 'GET',
+		headers: requestHeaders,
+	});
+
+	const { successful, result }: SingleItemJSONResponse<UserInfoWithRole> =
+		await response.json();
+	console.log(successful);
+	console.log(result);
+	return successful ? result! : ({} as UserInfoWithRole);
 }

@@ -1,4 +1,4 @@
-import { login, logout, register } from '../../services';
+import { fetchCurrentUserInfo, login, logout, register } from '../../services';
 import { UserActions } from './actions';
 import { UserState, UsersActionTypes } from './types';
 
@@ -14,18 +14,19 @@ export const userState: UserState = {
 		localStorage.getItem('token') !== undefined
 			? localStorage.getItem('token')!
 			: '',
+	role: '',
 };
 
 export function userReducer(state = userState, action: UserActions) {
 	switch (action.type) {
 		case UsersActionTypes.LOGIN:
-			login(action.payload.name, action.payload.email, action.payload.password);
 			return {
 				...state,
 				isAuth: true,
-				name: action.payload.name,
-				email: action.payload.email,
+				name: action.user.name,
+				email: action.user.email,
 				token: localStorage.getItem('token'),
+				role: action.user.role,
 			};
 		case UsersActionTypes.LOGOUT:
 			logout();

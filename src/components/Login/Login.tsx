@@ -10,21 +10,23 @@ import './Login.scss';
 import '../../App.scss';
 import { UserInfo } from '../../store/user/types';
 import { State } from '../../store/types';
+import { loginUser } from '../../store/user/thunk';
+import store from '../../store';
 
 export const Login = () => {
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const userState = useSelector((state: State) => state.user);
-	const dispatch = useDispatch();
 
 	const navigate = useNavigate();
 
 	useEffect(() => {
+		console.log(userState);
 		if (userState.isAuth) {
 			navigate('/courses');
 		}
-	}, [navigate, userState.isAuth]);
+	}, [navigate, userState, userState.isAuth]);
 
 	const LOGIN_FIELDS = [
 		{
@@ -104,7 +106,7 @@ export const Login = () => {
 				email: email,
 				password: password,
 			};
-			dispatch({ type: 'LOGIN', payload });
+			store.dispatch(loginUser(payload.name, payload.email, payload.password));
 		};
 	}
 };

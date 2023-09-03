@@ -10,10 +10,15 @@ export type UserInfo = {
 	password: string;
 };
 
+export interface UserInfoWithRole extends UserInfo {
+	role: string;
+}
+
 export type UserState = {
 	isAuth: boolean;
-	isRegistered: boolean;
+	isRegistered?: boolean;
 	name: string;
 	email: string;
 	token: string;
+	role: string;
 };
