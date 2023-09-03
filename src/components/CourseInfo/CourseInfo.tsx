@@ -7,6 +7,7 @@ import './CourseInfo.scss';
 import { getCourseToShow } from '../../helpers/getCourseToShow';
 import { useSelector } from 'react-redux';
 import { State } from '../../store/types';
+import { getDuration } from '../../helpers/getCourseDuration';
 
 export const CourseInfo = () => {
 	const state = useSelector((state: State) => state);
@@ -22,7 +23,7 @@ export const CourseInfo = () => {
 		},
 		{
 			id: 'Duration:',
-			value: courseToShow.duration,
+			value: getDuration(courseToShow.duration),
 		},
 		{
 			id: 'Created:',

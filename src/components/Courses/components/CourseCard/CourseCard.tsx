@@ -7,6 +7,7 @@ import './CourseCard.scss';
 import { deleteCourse, fetchCourses } from '../../../../services';
 import { useDispatch } from 'react-redux';
 import { CourseType } from '../../../../store/courses/types';
+import { getDuration } from '../../../../helpers/getCourseDuration';
 
 export const CourseCard = ({
 	id,
@@ -25,7 +26,7 @@ export const CourseCard = ({
 		},
 		{
 			id: 'Duration:',
-			value: duration,
+			value: getDuration(duration),
 		},
 		{
 			id: 'Created:',

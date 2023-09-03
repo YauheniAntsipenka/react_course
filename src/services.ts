@@ -2,6 +2,11 @@ import { LoginProps } from './components/Login/Login.types';
 import { RegistrationProps } from './components/Registration/Registration.types';
 import { CourseType } from './store/courses/types';
 import { AuthorType } from './store/authors/types';
+import {
+	IsSuccessfullJSONResponse,
+	ObjectsJSONResponse,
+	SingleItemJSONResponse,
+} from './services.types';
 
 export function login(name: string, email: string, password: string) {
 	const data: LoginProps = {
@@ -47,10 +52,8 @@ export function register(name: string, email: string, password: string) {
 export function getAllCourses() {
 	let courses: CourseType[] = [];
 	fetchCourses().then((coursesLocal) => {
-		console.log('coursesLocal: ', coursesLocal);
 		courses.concat(coursesLocal);
 	});
-	console.log('courses:', courses);
 	return courses;
 }
 
@@ -60,17 +63,10 @@ export async function fetchCourses(): Promise<CourseType[]> {
 		headers: new Headers({ 'content-type': 'application/json' }),
 	});
 
-	type JSONResponse = {
-		successful: boolean;
-		result?: CourseType[];
-	};
+	const { successful, result }: ObjectsJSONResponse<CourseType> =
+		await response.json();
 
-	const { successful, result }: JSONResponse = await response.json();
-
-	if (successful === true && result?.length) {
-		return result;
-	}
-	return [] as CourseType[];
+	return successful && result?.length ? result : ([] as CourseType[]);
 }
 
 export async function addCourse(data: CourseType): Promise<boolean> {
@@ -83,19 +79,10 @@ export async function addCourse(data: CourseType): Promise<boolean> {
 		body: JSON.stringify(data),
 	});
 
-	type JSONResponse = {
-		successful: boolean;
-		result?: CourseType;
-	};
+	const { successful }: SingleItemJSONResponse<CourseType> =
+		await response.json();
 
-	const { successful, result }: JSONResponse = await response.json();
-	console.log(data);
-	console.log(result);
-
-	if (successful === true) {
-		return true;
-	}
-	return false;
+	return successful;
 }
 
 export async function deleteCourse(courseId: string): Promise<boolean> {
@@ -107,16 +94,9 @@ export async function deleteCourse(courseId: string): Promise<boolean> {
 		headers: requestHeaders,
 	});
 
-	type JSONResponse = {
-		successful: boolean;
-	};
+	const { successful }: IsSuccessfullJSONResponse = await response.json();
 
-	const { successful }: JSONResponse = await response.json();
-
-	if (successful === true) {
-		return true;
-	}
-	return false;
+	return successful;
 }
 
 export async function fetchAuthors(): Promise<AuthorType[]> {
@@ -128,17 +108,10 @@ export async function fetchAuthors(): Promise<AuthorType[]> {
 		headers: requestHeaders,
 	});
 
-	type JSONResponse = {
-		successful: boolean;
-		result?: AuthorType[];
-	};
+	const { successful, result }: ObjectsJSONResponse<AuthorType> =
+		await response.json();
 
-	const { successful, result }: JSONResponse = await response.json();
-
-	if (successful === true && result?.length) {
-		return result;
-	}
-	return [] as AuthorType[];
+	return successful && result?.length ? result : ([] as AuthorType[]);
 }
 
 export async function addAuthor(data: AuthorType): Promise<boolean> {
@@ -151,16 +124,9 @@ export async function addAuthor(data: AuthorType): Promise<boolean> {
 		body: JSON.stringify(data),
 	});
 
-	type JSONResponse = {
-		successful: boolean;
-	};
+	const { successful }: IsSuccessfullJSONResponse = await response.json();
 
-	const { successful }: JSONResponse = await response.json();
-
-	if (successful === true) {
-		return true;
-	}
-	return false;
+	return successful;
 }
 
 export async function deleteAuthor(authorId: string): Promise<boolean> {
@@ -172,14 +138,7 @@ export async function deleteAuthor(authorId: string): Promise<boolean> {
 		headers: requestHeaders,
 	});
 
-	type JSONResponse = {
-		successful: boolean;
-	};
+	const { successful }: IsSuccessfullJSONResponse = await response.json();
 
-	const { successful }: JSONResponse = await response.json();
-
-	if (successful === true) {
-		return true;
-	}
-	return false;
+	return successful;
 }
