@@ -1,4 +1,5 @@
 import { CoursesAction } from './actions';
+import { fetchAllCourses } from './thunk';
 import { CourseType, CoursesActionTypes } from './types';
 
 export let initCoursesState = [] as CourseType[];
@@ -18,6 +19,7 @@ export function coursesReducer(
 			return action.courses;
 
 		case CoursesActionTypes.GET_ALL_COURSES:
+			// fetchAllCourses();
 			return action.courses;
 
 		default:

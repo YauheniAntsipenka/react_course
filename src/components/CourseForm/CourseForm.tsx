@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '../../common/Button/Button';
 import { Input } from '../../common/Input/Input';
 
-import './CreateCourse.scss';
+import './CourseForm.scss';
 import { getDuration } from '../../helpers/getCourseDuration';
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,7 +19,7 @@ import {
 import { AuthorType } from '../../store/authors/types';
 import { State } from '../../store/types';
 
-export const CreateCourse = () => {
+export const CourseForm = () => {
 	const navigate = useNavigate();
 	const [authorName, setAuthorName] = useState('');
 	const [title, setTitle] = useState('');

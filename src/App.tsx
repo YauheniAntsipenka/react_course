@@ -11,7 +11,7 @@ import { CourseInfo } from './components/CourseInfo/CourseInfo';
 import { Login } from './components/Login/Login';
 import { Registration } from './components/Registration/Registration';
 import { AppProps } from './App.types';
-import { CreateCourse } from './components/CreateCourse/CreateCourse';
+import { CourseForm } from './components/CourseForm/CourseForm';
 import { State } from './store/types';
 import { fetchCourses } from './services';
 
@@ -51,7 +51,7 @@ function App() {
 						}
 					/>
 					<Route path=':courseId' element={<CourseInfo />} />
-					<Route path='/courses/add' element={<CreateCourse />} />
+					<Route path='/courses/add' element={<CourseForm />} />
 				</Route>
 				<Route path='/login' element={<Login />} />
 				<Route path='/register' element={<Registration />} />
