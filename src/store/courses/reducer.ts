@@ -19,7 +19,6 @@ export function coursesReducer(
 			return action.courses;
 
 		case CoursesActionTypes.GET_ALL_COURSES:
-			// fetchAllCourses();
 			return action.courses;
 
 		default:

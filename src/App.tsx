@@ -13,7 +13,8 @@ import { Registration } from './components/Registration/Registration';
 import { AppProps } from './App.types';
 import { CourseForm } from './components/CourseForm/CourseForm';
 import { State } from './store/types';
-import { fetchCourses } from './services';
+import store from './store';
+import { fetchAllCourses } from './store/courses/thunk';
 
 function App() {
 	const state = useSelector((state: State) => state);
@@ -21,9 +22,7 @@ function App() {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		fetchCourses().then((courses) => {
-			dispatch({ type: 'GET_ALL_COURSES', courses });
-		});
+		store.dispatch(fetchAllCourses());
 	}, [dispatch]);
 
 	return (
