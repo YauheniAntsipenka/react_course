@@ -3,17 +3,22 @@ import { UserActions } from './actions';
 import { UserState, UsersActionTypes } from './types';
 
 export const userState: UserState = {
-	isAuth: false,
+	isAuth: localStorage.getItem('token') !== undefined ? true : false,
 	isRegistered: false,
-	name: '',
+	name:
+		localStorage.getItem('username') !== undefined
+			? localStorage.getItem('username')!
+			: '',
 	email: '',
-	token: '',
+	token:
+		localStorage.getItem('token') !== undefined
+			? localStorage.getItem('token')!
+			: '',
 };
 
 export function userReducer(state = userState, action: UserActions) {
 	switch (action.type) {
 		case UsersActionTypes.LOGIN:
-			console.log('login', action.payload);
 			login(action.payload.name, action.payload.email, action.payload.password);
 			return {
 				...state,
@@ -23,7 +28,6 @@ export function userReducer(state = userState, action: UserActions) {
 				token: localStorage.getItem('token'),
 			};
 		case UsersActionTypes.LOGOUT:
-			console.log('logout', action.payload);
 			logout();
 			return {
 				...state,
@@ -33,7 +37,6 @@ export function userReducer(state = userState, action: UserActions) {
 				token: '',
 			};
 		case UsersActionTypes.REGISTER:
-			console.log('register', action.payload);
 			register(
 				action.payload.name,
 				action.payload.email,

@@ -25,7 +25,7 @@ export function login(name: string, email: string, password: string) {
 			localStorage.setItem('username', responseData.user.name);
 		})
 		.catch((error) => {
-			console.log(error);
+			console.error(error);
 		});
 }
 

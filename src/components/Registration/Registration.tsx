@@ -15,16 +15,16 @@ export const Registration = () => {
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const state = useSelector((state: State) => state);
+	const userState = useSelector((state: State) => state.user);
 	const dispatch = useDispatch();
 
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		if (state.user.isRegistered) {
+		if (userState.isRegistered) {
 			navigate('/login');
 		}
-	}, [navigate, state.user.isRegistered]);
+	}, [navigate, userState.isRegistered]);
 
 	const REGISTRATION_FIELDS = [
 		{

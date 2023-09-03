@@ -17,7 +17,10 @@ import store from './store';
 import { getAllCourses } from './store/courses/thunk';
 
 function App() {
-	const state = useSelector((state: State) => state);
+	const userState = useSelector((state: State) => state.user);
+	console.log(userState);
+	const coursesState = useSelector((state: State) => state.courses);
+	console.log(coursesState);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
@@ -27,9 +30,9 @@ function App() {
 
 	return (
 		<div className='app'>
-			{state.user.isAuth && (
+			{userState.isAuth && (
 				<Header
-					username={state.user.name}
+					username={userState.name}
 					buttonText={'LOGOUT'}
 					buttonFunction={() => {
 						dispatch({ type: 'LOGOUT' });
@@ -43,9 +46,9 @@ function App() {
 						path=''
 						element={
 							<AppComponent
-								courses={state.courses}
-								username={state.user.name}
-								isTokenPresent={state.user.isAuth}
+								courses={coursesState}
+								username={userState.name}
+								isTokenPresent={userState.isAuth}
 							/>
 						}
 					/>

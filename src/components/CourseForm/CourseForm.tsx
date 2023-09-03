@@ -29,7 +29,7 @@ export const CourseForm = () => {
 	const [duration, setDuration] = useState(0);
 	const [durationInHours, setDurationInHours] = useState('00:00 hours');
 	const dispatch = useDispatch();
-	const state = useSelector((state: State) => state);
+	const authorsState = useSelector((state: State) => state.authors);
 
 	useEffect(() => {
 		store.dispatch(getAllAuthors());
@@ -121,7 +121,7 @@ export const CourseForm = () => {
 					<div className='infoGroup'>
 						<h5 className='h5'>Authors list</h5>
 						<ul>
-							{state.authors.map(({ name, id }) => (
+							{authorsState.map(({ name, id }) => (
 								<li className='authorsInfo' key={id}>
 									{name}
 									<div className='deleteAuthorButton'>
@@ -190,7 +190,7 @@ export const CourseForm = () => {
 			let authorIds = [] as string[];
 			fetchAuthors().then((presentAuthors) => {
 				const commonAuthors = presentAuthors.filter((o) =>
-					state.authors.some(({ name }) => o.name === name)
+					authorsState.some(({ name }) => o.name === name)
 				);
 				commonAuthors.map((resultAuthor) => authorIds.push(resultAuthor.id));
 			});

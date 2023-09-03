@@ -10,11 +10,11 @@ import { State } from '../../store/types';
 import { getDuration } from '../../helpers/getCourseDuration';
 
 export const CourseInfo = () => {
-	const state = useSelector((state: State) => state);
+	const coursesState = useSelector((state: State) => state.courses);
 	const { courseId } = useParams();
 	const navigate = useNavigate();
 
-	const courseToShow = getCourseToShow(state.courses, courseId);
+	const courseToShow = getCourseToShow(coursesState, courseId);
 
 	const ADDITIONAL_INFO = [
 		{
