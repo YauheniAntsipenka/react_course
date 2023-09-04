@@ -1,15 +1,28 @@
 import { Navigate } from 'react-router';
-import { ProtectedRouteProps } from './PrivateRoute.types';
+import { AdminRouteProps, ProtectedRouteProps } from './PrivateRoute.types';
 import React from 'react';
 
-export default function PrivateRoute({
+export function PrivateRoute({
 	isAuthenticated,
-	authenticationPath,
+	redirectPath,
 	outlet,
 }: ProtectedRouteProps) {
 	if (isAuthenticated) {
 		return outlet;
 	} else {
-		return <Navigate to={{ pathname: authenticationPath }} />;
+		return <Navigate to={{ pathname: redirectPath }} />;
+	}
+}
+
+export function AdminRoute({
+	isAuthenticated,
+	isAdmin,
+	redirectPath,
+	outlet,
+}: AdminRouteProps) {
+	if (isAuthenticated && isAdmin) {
+		return outlet;
+	} else {
+		return <Navigate to={{ pathname: redirectPath }} />;
 	}
 }

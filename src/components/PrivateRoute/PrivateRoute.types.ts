@@ -1,5 +1,9 @@
-export type ProtectedRouteProps = {
+export interface ProtectedRouteProps {
 	isAuthenticated: boolean;
-	authenticationPath: string;
+	redirectPath: string;
 	outlet: JSX.Element;
-};
+}
+
+export interface AdminRouteProps extends ProtectedRouteProps {
+	isAdmin: boolean;
+}

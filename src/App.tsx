@@ -15,7 +15,10 @@ import { CourseForm } from './components/CourseForm/CourseForm';
 import { State } from './store/types';
 import store from './store';
 import { getAllCourses } from './store/courses/thunk';
-import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import {
+	PrivateRoute,
+	AdminRoute,
+} from './components/PrivateRoute/PrivateRoute';
 
 function App() {
 	const userState = useSelector((state: State) => state.user);
@@ -46,7 +49,7 @@ function App() {
 						path=''
 						element={
 							<PrivateRoute
-								authenticationPath='/login'
+								redirectPath='/login'
 								isAuthenticated={userState.isAuth}
 								outlet={
 									<AppComponent
@@ -62,7 +65,7 @@ function App() {
 						path=':courseId'
 						element={
 							<PrivateRoute
-								authenticationPath='/login'
+								redirectPath='/login'
 								isAuthenticated={userState.isAuth}
 								outlet={<CourseInfo />}
 							/>
@@ -71,8 +74,9 @@ function App() {
 					<Route
 						path='/courses/add'
 						element={
-							<PrivateRoute
-								authenticationPath='/login'
+							<AdminRoute
+								isAdmin={userState.role === 'admin'}
+								redirectPath='/login'
 								isAuthenticated={userState.isAuth}
 								outlet={<CourseForm />}
 							/>
