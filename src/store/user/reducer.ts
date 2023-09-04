@@ -34,12 +34,11 @@ export function userReducer(state = userState, action: UserActions) {
 				role: action.user.role,
 			};
 		case UsersActionTypes.LOGOUT:
-			logout();
 			return {
 				...state,
 				isAuth: false,
-				name: '',
-				email: '',
+				name: action.user.name,
+				email: action.user.email,
 				token: '',
 			};
 		case UsersActionTypes.REGISTER:

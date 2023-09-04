@@ -1,5 +1,5 @@
 import { Dispatch } from 'react';
-import { fetchCurrentUserInfo, login } from '../../services';
+import { fetchCurrentUserInfo, login, logout } from '../../services';
 import { AnyAction } from '@reduxjs/toolkit';
 import { UserState } from './types';
 
@@ -21,6 +21,24 @@ export const loginUser = (name: string, email: string, password: string) => {
 					});
 				});
 			}
+		});
+	};
+};
+
+export const logoutUser = () => {
+	return function (dispatch: Dispatch<AnyAction>) {
+		logout().then(() => {
+			const userState: UserState = {
+				isAuth: false,
+				name: '',
+				email: '',
+				token: '',
+				role: '',
+			};
+			dispatch({
+				type: 'LOGOUT',
+				user: userState,
+			});
 		});
 	};
 };

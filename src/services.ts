@@ -37,9 +37,18 @@ export async function login(
 	return false;
 }
 
-export function logout() {
+export async function logout() {
+	const requestHeaders: HeadersInit = new Headers();
+	requestHeaders.set('Content-Type', 'application/json');
+	requestHeaders.set('Authorization', localStorage.getItem('token')!);
+
 	localStorage.removeItem('token');
 	localStorage.removeItem('username');
+
+	await fetch('http://localhost:4000/logout', {
+		method: 'DELETE',
+		headers: requestHeaders,
+	});
 }
 
 export function register(name: string, email: string, password: string) {

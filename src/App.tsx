@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import { Courses } from './components/Courses/Courses';
 import { Header } from './components/Header/Header';
@@ -19,13 +19,11 @@ import {
 	PrivateRoute,
 	AdminRoute,
 } from './components/PrivateRoute/PrivateRoute';
+import { logoutUser } from './store/user/thunk';
 
 function App() {
 	const userState = useSelector((state: State) => state.user);
-	console.log(userState);
 	const coursesState = useSelector((state: State) => state.courses);
-	const navigate = useNavigate();
-	const dispatch = useDispatch();
 
 	useEffect(() => {
 		store.dispatch(getAllCourses());
@@ -38,8 +36,7 @@ function App() {
 					username={userState.name}
 					buttonText={'LOGOUT'}
 					buttonFunction={() => {
-						dispatch({ type: 'LOGOUT' });
-						navigate('/login');
+						store.dispatch(logoutUser());
 					}}
 				/>
 			)}

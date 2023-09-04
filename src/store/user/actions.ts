@@ -7,7 +7,7 @@ interface LoginUser {
 
 interface LogoutUser {
 	type: UsersActionTypes.LOGOUT;
-	payload: UserInfo;
+	user: UserInfo;
 }
 
 interface RegisterUser {
