@@ -83,7 +83,7 @@ export const CourseCard = ({
 									<Button
 										text='&#x270E;'
 										onClickFunction={() => {
-											navigate('/courses/' + id);
+											navigate('/courses/update/' + id);
 										}}
 									/>
 								</div>

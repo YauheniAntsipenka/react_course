@@ -69,6 +69,17 @@ function App() {
 						}
 					/>
 					<Route
+						path='/courses/update/:courseId'
+						element={
+							<AdminRoute
+								isAdmin={userState.role === 'admin'}
+								redirectPath='/courses'
+								isAuthenticated={userState.isAuth}
+								outlet={<CourseForm />}
+							/>
+						}
+					/>
+					<Route
 						path='/courses/add'
 						element={
 							<AdminRoute

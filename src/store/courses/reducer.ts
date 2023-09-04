@@ -9,7 +9,7 @@ export function coursesReducer(
 ) {
 	switch (action.type) {
 		case CoursesActionTypes.SAVE_COURSE:
-			return action.payload;
+			return action.courses;
 
 		case CoursesActionTypes.ADD_COURSE:
 			return action.courses;

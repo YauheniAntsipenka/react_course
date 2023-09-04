@@ -78,12 +78,44 @@ export async function fetchCourses(): Promise<CourseType[]> {
 	return successful && result?.length ? result : ([] as CourseType[]);
 }
 
+export async function fetchCourseById(courseId: string): Promise<CourseType> {
+	const requestHeaders: HeadersInit = new Headers();
+	requestHeaders.set('Content-Type', 'application/json');
+	requestHeaders.set('Authorization', localStorage.getItem('token')!);
+
+	const response = await fetch('http://localhost:4000/courses/' + courseId, {
+		method: 'GET',
+		headers: requestHeaders,
+	});
+
+	const { successful, result }: SingleItemJSONResponse<CourseType> =
+		await response.json();
+
+	return successful ? result! : ({} as CourseType);
+}
+
 export async function addCourse(data: CourseType): Promise<boolean> {
 	const requestHeaders: HeadersInit = new Headers();
 	requestHeaders.set('Content-Type', 'application/json');
 	requestHeaders.set('Authorization', localStorage.getItem('token')!);
 	const response = await fetch('http://localhost:4000/courses/add', {
 		method: 'POST',
+		headers: requestHeaders,
+		body: JSON.stringify(data),
+	});
+
+	const { successful }: SingleItemJSONResponse<CourseType> =
+		await response.json();
+
+	return successful;
+}
+
+export async function updateCourse(data: CourseType): Promise<boolean> {
+	const requestHeaders: HeadersInit = new Headers();
+	requestHeaders.set('Content-Type', 'application/json');
+	requestHeaders.set('Authorization', localStorage.getItem('token')!);
+	const response = await fetch('http://localhost:4000/courses/' + data.id, {
+		method: 'PUT',
 		headers: requestHeaders,
 		body: JSON.stringify(data),
 	});

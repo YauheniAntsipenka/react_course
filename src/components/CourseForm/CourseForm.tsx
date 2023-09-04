@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Button } from '../../common/Button/Button';
 import { Input } from '../../common/Input/Input';
@@ -14,7 +14,9 @@ import {
 	addCourse,
 	deleteAuthor,
 	fetchAuthors,
+	fetchCourseById,
 	fetchCourses,
+	updateCourse,
 } from '../../services';
 import { AuthorType } from '../../store/authors/types';
 import { State } from '../../store/types';
@@ -23,6 +25,8 @@ import { getAllAuthors } from '../../store/authors/thunk';
 
 export const CourseForm = () => {
 	const navigate = useNavigate();
+	const location = useLocation();
+	const [isUpdateAction] = useState(location.pathname.indexOf('update') !== 0);
 	const [authorName, setAuthorName] = useState('');
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
@@ -32,8 +36,17 @@ export const CourseForm = () => {
 	const authorsState = useSelector((state: State) => state.authors);
 
 	useEffect(() => {
+		if (isUpdateAction) {
+			const courseId = location.pathname.split('update/')[1];
+			fetchCourseById(courseId).then((course) => {
+				setTitle(course.title);
+				setDescription(course.description);
+				setDuration(course.duration);
+				setDurationInHours(getDuration(course.duration));
+			});
+		}
 		store.dispatch(getAllAuthors());
-	}, []);
+	}, [isUpdateAction, location.pathname]);
 
 	const COURSE_INFO = [
 		{
@@ -174,17 +187,24 @@ export const CourseForm = () => {
 						/>
 					</div>
 					<div className='createCourseButton'>
-						<Button
-							text='CREATE COURSE'
-							onClickFunction={handleButtonClickFunction()}
-						/>
+						{isUpdateAction ? (
+							<Button
+								text='UPDATE COURSE'
+								onClickFunction={updateCourseButtonClickFunction()}
+							/>
+						) : (
+							<Button
+								text='CREATE COURSE'
+								onClickFunction={createCourseButtonClickFunction()}
+							/>
+						)}
 					</div>
 				</div>
 			</div>
 		</div>
 	);
 
-	function handleButtonClickFunction(): (params: any) => any {
+	function createCourseButtonClickFunction(): (params: any) => any {
 		return () => {
 			let authorIds = [] as string[];
 			fetchAuthors().then((presentAuthors) => {
@@ -205,6 +225,35 @@ export const CourseForm = () => {
 					fetchCourses()
 						.then((courses) => {
 							dispatch({ type: 'ADD_COURSE', courses });
+						})
+						.then(() => navigate('/courses'));
+				}
+			});
+		};
+	}
+
+	function updateCourseButtonClickFunction(): (params: any) => any {
+		return () => {
+			let authorIds = [] as string[];
+			fetchAuthors().then((presentAuthors) => {
+				const commonAuthors = presentAuthors.filter((o) =>
+					authorsState.some(({ name }) => o.name === name)
+				);
+				commonAuthors.map((resultAuthor) => authorIds.push(resultAuthor.id));
+			});
+			const course: CourseType = {
+				creationDate: String(new Date().toLocaleDateString('ru-RU')),
+				title: title,
+				description: description,
+				duration: Number(duration),
+				authors: authorIds,
+				id: location.pathname.split('update/')[1],
+			};
+			updateCourse(course).then((isUpdated) => {
+				if (isUpdated) {
+					fetchCourses()
+						.then((courses) => {
+							dispatch({ type: 'SAVE_COURSE', courses });
 						})
 						.then(() => navigate('/courses'));
 				}
