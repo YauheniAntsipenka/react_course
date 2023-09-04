@@ -5,9 +5,10 @@ import { Button } from '../../../../common/Button/Button';
 
 import './CourseCard.scss';
 import { deleteCourse, fetchCourses } from '../../../../services';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { CourseType } from '../../../../store/courses/types';
 import { getDuration } from '../../../../helpers/getCourseDuration';
+import { State } from '../../../../store/types';
 
 export const CourseCard = ({
 	id,
@@ -17,6 +18,7 @@ export const CourseCard = ({
 	authors,
 	description,
 }: CourseType) => {
+	const userState = useSelector((state: State) => state.user);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const ADDITIONAL_INFO = [
@@ -59,29 +61,33 @@ export const CourseCard = ({
 									}}
 								/>
 							</div>
-							<div className='deleteCourseButton'>
-								<Button
-									text='&#x1F5D1;'
-									onClickFunction={() => {
-										deleteCourse(id!).then((isDeleted) => {
-											if (isDeleted) {
-												fetchCourses().then((courses) => {
-													dispatch({ type: 'DELETE_COURSE', courses });
-												});
-												navigate('/courses');
-											}
-										});
-									}}
-								/>
-							</div>
-							<div className='editCourseButton'>
-								<Button
-									text='&#x270E;'
-									onClickFunction={() => {
-										navigate('/courses/' + id);
-									}}
-								/>
-							</div>
+							{userState.role === 'admin' ? (
+								<div className='deleteCourseButton'>
+									<Button
+										text='&#x1F5D1;'
+										onClickFunction={() => {
+											deleteCourse(id!).then((isDeleted) => {
+												if (isDeleted) {
+													fetchCourses().then((courses) => {
+														dispatch({ type: 'DELETE_COURSE', courses });
+													});
+													navigate('/courses');
+												}
+											});
+										}}
+									/>
+								</div>
+							) : null}
+							{userState.role === 'admin' ? (
+								<div className='editCourseButton'>
+									<Button
+										text='&#x270E;'
+										onClickFunction={() => {
+											navigate('/courses/' + id);
+										}}
+									/>
+								</div>
+							) : null}
 						</div>
 					</div>
 				</div>

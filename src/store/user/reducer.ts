@@ -1,4 +1,4 @@
-import { logout, register } from '../../services';
+import { register } from '../../services';
 import { UserActions } from './actions';
 import { UserState, UsersActionTypes } from './types';
 
