@@ -22,7 +22,6 @@ export const Login = () => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		console.log(userState);
 		if (userState.isAuth) {
 			navigate('/courses');
 		}

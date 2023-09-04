@@ -145,7 +145,6 @@ export async function deleteAuthor(authorId: string): Promise<boolean> {
 
 export async function fetchCurrentUserInfo(): Promise<UserInfoWithRole> {
 	const requestHeaders: HeadersInit = new Headers();
-	console.log(localStorage.getItem('token')!);
 	const tokenValue = localStorage.getItem('token')!;
 	requestHeaders.set('Authorization', tokenValue);
 	const response = await fetch('http://localhost:4000/users/me', {
@@ -155,7 +154,5 @@ export async function fetchCurrentUserInfo(): Promise<UserInfoWithRole> {
 
 	const { successful, result }: SingleItemJSONResponse<UserInfoWithRole> =
 		await response.json();
-	console.log(successful);
-	console.log(result);
 	return successful ? result! : ({} as UserInfoWithRole);
 }

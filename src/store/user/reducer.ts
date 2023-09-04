@@ -1,9 +1,13 @@
-import { fetchCurrentUserInfo, login, logout, register } from '../../services';
+import { logout, register } from '../../services';
 import { UserActions } from './actions';
 import { UserState, UsersActionTypes } from './types';
 
 export const userState: UserState = {
-	isAuth: localStorage.getItem('token') !== undefined ? true : false,
+	isAuth:
+		localStorage.getItem('token') !== undefined &&
+		localStorage.getItem('token') !== null
+			? true
+			: false,
 	isRegistered: false,
 	name:
 		localStorage.getItem('username') !== undefined
@@ -11,7 +15,8 @@ export const userState: UserState = {
 			: '',
 	email: '',
 	token:
-		localStorage.getItem('token') !== undefined
+		localStorage.getItem('token') !== undefined &&
+		localStorage.getItem('token') !== null
 			? localStorage.getItem('token')!
 			: '',
 	role: '',

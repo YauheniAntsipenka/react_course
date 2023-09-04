@@ -15,9 +15,11 @@ import { CourseForm } from './components/CourseForm/CourseForm';
 import { State } from './store/types';
 import store from './store';
 import { getAllCourses } from './store/courses/thunk';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
 function App() {
 	const userState = useSelector((state: State) => state.user);
+	console.log(userState);
 	const coursesState = useSelector((state: State) => state.courses);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -43,15 +45,39 @@ function App() {
 					<Route
 						path=''
 						element={
-							<AppComponent
-								courses={coursesState}
-								username={userState.name}
-								isTokenPresent={userState.isAuth}
+							<PrivateRoute
+								authenticationPath='/login'
+								isAuthenticated={userState.isAuth}
+								outlet={
+									<AppComponent
+										courses={coursesState}
+										username={userState.name}
+										isTokenPresent={userState.isAuth}
+									/>
+								}
 							/>
 						}
 					/>
-					<Route path=':courseId' element={<CourseInfo />} />
-					<Route path='/courses/add' element={<CourseForm />} />
+					<Route
+						path=':courseId'
+						element={
+							<PrivateRoute
+								authenticationPath='/login'
+								isAuthenticated={userState.isAuth}
+								outlet={<CourseInfo />}
+							/>
+						}
+					/>
+					<Route
+						path='/courses/add'
+						element={
+							<PrivateRoute
+								authenticationPath='/login'
+								isAuthenticated={userState.isAuth}
+								outlet={<CourseForm />}
+							/>
+						}
+					/>
 				</Route>
 				<Route path='/login' element={<Login />} />
 				<Route path='/register' element={<Registration />} />
