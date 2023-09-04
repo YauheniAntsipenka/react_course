@@ -75,7 +75,7 @@ function App() {
 								isAdmin={userState.role === 'admin'}
 								redirectPath='/courses'
 								isAuthenticated={userState.isAuth}
-								outlet={<CourseForm />}
+								outlet={<CourseForm isUpdateAction={true} />}
 							/>
 						}
 					/>
@@ -86,7 +86,7 @@ function App() {
 								isAdmin={userState.role === 'admin'}
 								redirectPath='/login'
 								isAuthenticated={userState.isAuth}
-								outlet={<CourseForm />}
+								outlet={<CourseForm isUpdateAction={false} />}
 							/>
 						}
 					/>

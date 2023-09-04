@@ -22,11 +22,11 @@ import { AuthorType } from '../../store/authors/types';
 import { State } from '../../store/types';
 import store from '../../store';
 import { getAllAuthors } from '../../store/authors/thunk';
+import { CourseFormProps } from './CourseForm.types';
 
-export const CourseForm = () => {
+export const CourseForm = (props: CourseFormProps) => {
 	const navigate = useNavigate();
 	const location = useLocation();
-	const [isUpdateAction] = useState(location.pathname.indexOf('update') !== 0);
 	const [authorName, setAuthorName] = useState('');
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
@@ -36,7 +36,7 @@ export const CourseForm = () => {
 	const authorsState = useSelector((state: State) => state.authors);
 
 	useEffect(() => {
-		if (isUpdateAction) {
+		if (props.isUpdateAction) {
 			const courseId = location.pathname.split('update/')[1];
 			fetchCourseById(courseId).then((course) => {
 				setTitle(course.title);
@@ -46,7 +46,7 @@ export const CourseForm = () => {
 			});
 		}
 		store.dispatch(getAllAuthors());
-	}, [isUpdateAction, location.pathname]);
+	}, [location.pathname, props.isUpdateAction]);
 
 	const COURSE_INFO = [
 		{
@@ -163,7 +163,9 @@ export const CourseForm = () => {
 	return (
 		<div className='createCourseBody'>
 			<div className='createCourseGeneral'>
-				<h2 className='createCourseGeneralTitle'>Create Page</h2>
+				<h2 className='createCourseGeneralTitle'>
+					{props.isUpdateAction ? 'Course Edit' : 'Create Page'}
+				</h2>
 				<div className='createCourseGeneralGroup'>
 					<div className='createCourseGeneralSubGroup'>
 						{COURSE_INFO.map((item) => {
@@ -187,7 +189,7 @@ export const CourseForm = () => {
 						/>
 					</div>
 					<div className='createCourseButton'>
-						{isUpdateAction ? (
+						{props.isUpdateAction ? (
 							<Button
 								text='UPDATE COURSE'
 								onClickFunction={updateCourseButtonClickFunction()}
