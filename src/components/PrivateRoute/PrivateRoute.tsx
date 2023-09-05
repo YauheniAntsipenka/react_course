@@ -7,11 +7,11 @@ export function PrivateRoute({
 	redirectPath,
 	children,
 }: ProtectedRouteProps) {
-	if (isAuthenticated) {
-		return children;
-	} else {
-		return <Navigate to={{ pathname: redirectPath }} />;
-	}
+	return isAuthenticated ? (
+		children
+	) : (
+		<Navigate to={{ pathname: redirectPath }} />
+	);
 }
 
 export function AdminRoute({
@@ -20,9 +20,9 @@ export function AdminRoute({
 	redirectPath,
 	children,
 }: AdminRouteProps) {
-	if (isAuthenticated && isAdmin) {
-		return children;
-	} else {
-		return <Navigate to={{ pathname: redirectPath }} />;
-	}
+	return isAuthenticated && isAdmin ? (
+		children
+	) : (
+		<Navigate to={{ pathname: redirectPath }} />
+	);
 }
