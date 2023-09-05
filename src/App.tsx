@@ -48,14 +48,13 @@ function App() {
 							<PrivateRoute
 								redirectPath='/login'
 								isAuthenticated={userState.isAuth}
-								outlet={
-									<AppComponent
-										courses={coursesState}
-										username={userState.name}
-										isTokenPresent={userState.isAuth}
-									/>
-								}
-							/>
+							>
+								<AppComponent
+									courses={coursesState}
+									username={userState.name}
+									isTokenPresent={userState.isAuth}
+								/>
+							</PrivateRoute>
 						}
 					/>
 					<Route
@@ -64,8 +63,9 @@ function App() {
 							<PrivateRoute
 								redirectPath='/login'
 								isAuthenticated={userState.isAuth}
-								outlet={<CourseInfo />}
-							/>
+							>
+								<CourseInfo />
+							</PrivateRoute>
 						}
 					/>
 					<Route
@@ -75,8 +75,9 @@ function App() {
 								isAdmin={userState.role === 'admin'}
 								redirectPath='/courses'
 								isAuthenticated={userState.isAuth}
-								outlet={<CourseForm isUpdateAction={true} />}
-							/>
+							>
+								<CourseForm isUpdateAction={true} />
+							</AdminRoute>
 						}
 					/>
 					<Route
@@ -86,8 +87,9 @@ function App() {
 								isAdmin={userState.role === 'admin'}
 								redirectPath='/login'
 								isAuthenticated={userState.isAuth}
-								outlet={<CourseForm isUpdateAction={false} />}
-							/>
+							>
+								<CourseForm isUpdateAction={false} />
+							</AdminRoute>
 						}
 					/>
 				</Route>

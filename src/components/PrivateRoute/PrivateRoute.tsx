@@ -5,10 +5,10 @@ import React from 'react';
 export function PrivateRoute({
 	isAuthenticated,
 	redirectPath,
-	outlet,
+	children,
 }: ProtectedRouteProps) {
 	if (isAuthenticated) {
-		return outlet;
+		return children;
 	} else {
 		return <Navigate to={{ pathname: redirectPath }} />;
 	}
@@ -18,10 +18,10 @@ export function AdminRoute({
 	isAuthenticated,
 	isAdmin,
 	redirectPath,
-	outlet,
+	children,
 }: AdminRouteProps) {
 	if (isAuthenticated && isAdmin) {
-		return outlet;
+		return children;
 	} else {
 		return <Navigate to={{ pathname: redirectPath }} />;
 	}
