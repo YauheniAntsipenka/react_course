@@ -2,7 +2,7 @@ import { CourseType, CoursesActionTypes } from './types';
 
 interface SaveCourses {
 	type: CoursesActionTypes.SAVE_COURSE;
-	payload: CourseType;
+	courses: CourseType[];
 }
 
 interface AddCourse {

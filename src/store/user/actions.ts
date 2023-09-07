@@ -1,13 +1,13 @@
-import { UserInfo, UsersActionTypes } from './types';
+import { UserInfo, UserInfoWithRole, UsersActionTypes } from './types';
 
 interface LoginUser {
 	type: UsersActionTypes.LOGIN;
-	payload: UserInfo;
+	user: UserInfoWithRole;
 }
 
 interface LogoutUser {
 	type: UsersActionTypes.LOGOUT;
-	payload: UserInfo;
+	user: UserInfo;
 }
 
 interface RegisterUser {

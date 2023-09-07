@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import { Courses } from './components/Courses/Courses';
 import { Header } from './components/Header/Header';
@@ -11,30 +11,32 @@ import { CourseInfo } from './components/CourseInfo/CourseInfo';
 import { Login } from './components/Login/Login';
 import { Registration } from './components/Registration/Registration';
 import { AppProps } from './App.types';
-import { CreateCourse } from './components/CreateCourse/CreateCourse';
+import { CourseForm } from './components/CourseForm/CourseForm';
 import { State } from './store/types';
-import { fetchCourses } from './services';
+import store from './store';
+import { getAllCourses } from './store/courses/thunk';
+import {
+	PrivateRoute,
+	AdminRoute,
+} from './components/PrivateRoute/PrivateRoute';
+import { logoutUser } from './store/user/thunk';
 
 function App() {
-	const state = useSelector((state: State) => state);
-	const navigate = useNavigate();
-	const dispatch = useDispatch();
+	const userState = useSelector((state: State) => state.user);
+	const coursesState = useSelector((state: State) => state.courses);
 
 	useEffect(() => {
-		fetchCourses().then((courses) => {
-			dispatch({ type: 'GET_ALL_COURSES', courses });
-		});
-	}, [dispatch]);
+		store.dispatch(getAllCourses());
+	}, []);
 
 	return (
 		<div className='app'>
-			{state.user.isAuth && (
+			{userState.isAuth && (
 				<Header
-					username={state.user.name}
+					username={userState.name}
 					buttonText={'LOGOUT'}
 					buttonFunction={() => {
-						dispatch({ type: 'LOGOUT' });
-						navigate('/login');
+						store.dispatch(logoutUser());
 					}}
 				/>
 			)}
@@ -43,15 +45,53 @@ function App() {
 					<Route
 						path=''
 						element={
-							<AppComponent
-								courses={state.courses}
-								username={state.user.name}
-								isTokenPresent={state.user.isAuth}
-							/>
+							<PrivateRoute
+								redirectPath='/login'
+								isAuthenticated={userState.isAuth}
+							>
+								<AppComponent
+									courses={coursesState}
+									username={userState.name}
+									isTokenPresent={userState.isAuth}
+								/>
+							</PrivateRoute>
 						}
 					/>
-					<Route path=':courseId' element={<CourseInfo />} />
-					<Route path='/courses/add' element={<CreateCourse />} />
+					<Route
+						path=':courseId'
+						element={
+							<PrivateRoute
+								redirectPath='/login'
+								isAuthenticated={userState.isAuth}
+							>
+								<CourseInfo />
+							</PrivateRoute>
+						}
+					/>
+					<Route
+						path='/courses/update/:courseId'
+						element={
+							<AdminRoute
+								isAdmin={userState.role === 'admin'}
+								redirectPath='/courses'
+								isAuthenticated={userState.isAuth}
+							>
+								<CourseForm isUpdateAction={true} />
+							</AdminRoute>
+						}
+					/>
+					<Route
+						path='/courses/add'
+						element={
+							<AdminRoute
+								isAdmin={userState.role === 'admin'}
+								redirectPath='/login'
+								isAuthenticated={userState.isAuth}
+							>
+								<CourseForm isUpdateAction={false} />
+							</AdminRoute>
+						}
+					/>
 				</Route>
 				<Route path='/login' element={<Login />} />
 				<Route path='/register' element={<Registration />} />

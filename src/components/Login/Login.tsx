@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { Header } from '../Header/Header';
 import { Button } from '../../common/Button/Button';
@@ -10,21 +10,22 @@ import './Login.scss';
 import '../../App.scss';
 import { UserInfo } from '../../store/user/types';
 import { State } from '../../store/types';
+import { loginUser } from '../../store/user/thunk';
+import store from '../../store';
 
 export const Login = () => {
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const state = useSelector((state: State) => state);
-	const dispatch = useDispatch();
+	const userState = useSelector((state: State) => state.user);
 
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		if (state.user.isAuth) {
+		if (userState.isAuth) {
 			navigate('/courses');
 		}
-	}, [navigate, state.user.isAuth]);
+	}, [navigate, userState, userState.isAuth]);
 
 	const LOGIN_FIELDS = [
 		{
@@ -104,7 +105,7 @@ export const Login = () => {
 				email: email,
 				password: password,
 			};
-			dispatch({ type: 'LOGIN', payload });
+			store.dispatch(loginUser(payload.name, payload.email, payload.password));
 		};
 	}
 };

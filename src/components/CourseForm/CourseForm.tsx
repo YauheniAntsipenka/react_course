@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Button } from '../../common/Button/Button';
 import { Input } from '../../common/Input/Input';
 
-import './CreateCourse.scss';
+import './CourseForm.scss';
 import { getDuration } from '../../helpers/getCourseDuration';
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,26 +14,39 @@ import {
 	addCourse,
 	deleteAuthor,
 	fetchAuthors,
+	fetchCourseById,
 	fetchCourses,
+	updateCourse,
 } from '../../services';
 import { AuthorType } from '../../store/authors/types';
 import { State } from '../../store/types';
+import store from '../../store';
+import { getAllAuthors } from '../../store/authors/thunk';
+import { CourseFormProps } from './CourseForm.types';
 
-export const CreateCourse = () => {
+export const CourseForm = (props: CourseFormProps) => {
 	const navigate = useNavigate();
+	const location = useLocation();
 	const [authorName, setAuthorName] = useState('');
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
 	const [duration, setDuration] = useState(0);
 	const [durationInHours, setDurationInHours] = useState('00:00 hours');
 	const dispatch = useDispatch();
-	const state = useSelector((state: State) => state);
+	const authorsState = useSelector((state: State) => state.authors);
 
 	useEffect(() => {
-		fetchAuthors().then((authors) => {
-			dispatch({ type: 'GET_ALL_AUTHORS', authors });
-		});
-	}, [dispatch]);
+		if (props.isUpdateAction) {
+			const courseId = location.pathname.split('update/')[1];
+			fetchCourseById(courseId).then((course) => {
+				setTitle(course.title);
+				setDescription(course.description);
+				setDuration(course.duration);
+				setDurationInHours(getDuration(course.duration));
+			});
+		}
+		store.dispatch(getAllAuthors());
+	}, [location.pathname, props.isUpdateAction]);
 
 	const COURSE_INFO = [
 		{
@@ -121,7 +134,7 @@ export const CreateCourse = () => {
 					<div className='infoGroup'>
 						<h5 className='h5'>Authors list</h5>
 						<ul>
-							{state.authors.map(({ name, id }) => (
+							{authorsState.map(({ name, id }) => (
 								<li className='authorsInfo' key={id}>
 									{name}
 									<div className='deleteAuthorButton'>
@@ -130,7 +143,6 @@ export const CreateCourse = () => {
 											onClickFunction={() => {
 												deleteAuthor(id).then((isDeleted) => {
 													if (isDeleted) {
-														console.log('isDeleted: ', isDeleted);
 														fetchAuthors().then((authors) => {
 															dispatch({ type: 'DELETE_AUTHOR', authors });
 														});
@@ -151,7 +163,9 @@ export const CreateCourse = () => {
 	return (
 		<div className='createCourseBody'>
 			<div className='createCourseGeneral'>
-				<h2 className='createCourseGeneralTitle'>Create Page</h2>
+				<h2 className='createCourseGeneralTitle'>
+					{props.isUpdateAction ? 'Course Edit' : 'Create Page'}
+				</h2>
 				<div className='createCourseGeneralGroup'>
 					<div className='createCourseGeneralSubGroup'>
 						{COURSE_INFO.map((item) => {
@@ -175,22 +189,29 @@ export const CreateCourse = () => {
 						/>
 					</div>
 					<div className='createCourseButton'>
-						<Button
-							text='CREATE COURSE'
-							onClickFunction={handleButtonClickFunction()}
-						/>
+						{props.isUpdateAction ? (
+							<Button
+								text='UPDATE COURSE'
+								onClickFunction={updateCourseButtonClickFunction()}
+							/>
+						) : (
+							<Button
+								text='CREATE COURSE'
+								onClickFunction={createCourseButtonClickFunction()}
+							/>
+						)}
 					</div>
 				</div>
 			</div>
 		</div>
 	);
 
-	function handleButtonClickFunction(): (params: any) => any {
+	function createCourseButtonClickFunction(): (params: any) => any {
 		return () => {
 			let authorIds = [] as string[];
 			fetchAuthors().then((presentAuthors) => {
 				const commonAuthors = presentAuthors.filter((o) =>
-					state.authors.some(({ name }) => o.name === name)
+					authorsState.some(({ name }) => o.name === name)
 				);
 				commonAuthors.map((resultAuthor) => authorIds.push(resultAuthor.id));
 			});
@@ -206,6 +227,35 @@ export const CreateCourse = () => {
 					fetchCourses()
 						.then((courses) => {
 							dispatch({ type: 'ADD_COURSE', courses });
+						})
+						.then(() => navigate('/courses'));
+				}
+			});
+		};
+	}
+
+	function updateCourseButtonClickFunction(): (params: any) => any {
+		return () => {
+			let authorIds = [] as string[];
+			fetchAuthors().then((presentAuthors) => {
+				const commonAuthors = presentAuthors.filter((o) =>
+					authorsState.some(({ name }) => o.name === name)
+				);
+				commonAuthors.map((resultAuthor) => authorIds.push(resultAuthor.id));
+			});
+			const course: CourseType = {
+				creationDate: String(new Date().toLocaleDateString('ru-RU')),
+				title: title,
+				description: description,
+				duration: Number(duration),
+				authors: authorIds,
+				id: location.pathname.split('update/')[1],
+			};
+			updateCourse(course).then((isUpdated) => {
+				if (isUpdated) {
+					fetchCourses()
+						.then((courses) => {
+							dispatch({ type: 'SAVE_COURSE', courses });
 						})
 						.then(() => navigate('/courses'));
 				}

@@ -1,39 +1,47 @@
-import { login, logout, register } from '../../services';
+import { register } from '../../services';
 import { UserActions } from './actions';
 import { UserState, UsersActionTypes } from './types';
 
 export const userState: UserState = {
-	isAuth: false,
+	isAuth:
+		localStorage.getItem('token') !== undefined &&
+		localStorage.getItem('token') !== null
+			? true
+			: false,
 	isRegistered: false,
-	name: '',
+	name:
+		localStorage.getItem('username') !== undefined
+			? localStorage.getItem('username')!
+			: '',
 	email: '',
-	token: '',
+	token:
+		localStorage.getItem('token') !== undefined &&
+		localStorage.getItem('token') !== null
+			? localStorage.getItem('token')!
+			: '',
+	role: '',
 };
 
 export function userReducer(state = userState, action: UserActions) {
 	switch (action.type) {
 		case UsersActionTypes.LOGIN:
-			console.log('login', action.payload);
-			login(action.payload.name, action.payload.email, action.payload.password);
 			return {
 				...state,
 				isAuth: true,
-				name: action.payload.name,
-				email: action.payload.email,
+				name: action.user.name,
+				email: action.user.email,
 				token: localStorage.getItem('token'),
+				role: action.user.role,
 			};
 		case UsersActionTypes.LOGOUT:
-			console.log('logout', action.payload);
-			logout();
 			return {
 				...state,
 				isAuth: false,
-				name: '',
-				email: '',
+				name: action.user.name,
+				email: action.user.email,
 				token: '',
 			};
 		case UsersActionTypes.REGISTER:
-			console.log('register', action.payload);
 			register(
 				action.payload.name,
 				action.payload.email,
