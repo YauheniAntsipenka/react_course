@@ -19,15 +19,6 @@ test('should handle a SAVE_COURSE and return the same state', () => {
 		},
 	];
 	expect(coursesReducer(previousState, CoursesActionTypes.SAVE_COURSE)).toEqual(
-		[
-			{
-				id: 'id',
-				title: 'title',
-				duration: 1,
-				creationDate: 'date',
-				authors: ['author'],
-				description: 'description',
-			},
-		]
+		previousState
 	);
 });
